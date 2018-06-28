@@ -91,6 +91,7 @@ var app = {
 }
 
 var $app = document.getElementById('app')
+var $h1 = document.querySelector('h1')
 
 function displayItem(itemNumber) {
 
@@ -98,6 +99,7 @@ function displayItem(itemNumber) {
   var $img = document.createElement('img')
   var $cardBody = document.createElement('div')
   var $cardTitle = document.createElement('h5')
+  var $cardSubTitle = document.createElement('h6')
   var $cardText = document.createElement('p')
   var $link = document.createElement('a')
 
@@ -108,11 +110,13 @@ function displayItem(itemNumber) {
   $img.setAttribute('alt', 'Card image cap')
   $cardBody.setAttribute('class', 'card-body')
   $cardTitle.setAttribute('class', 'card-title')
+  $cardSubTitle.setAttribute('class', 'card-subtitle mb-2 text-muted')
   $cardText.setAttribute('class', 'card-text')
   $link.setAttribute('href', '#')
   $link.setAttribute('class', 'btn btn-outline-primary btn-sm')
 
   $cardTitle.textContent = app.catalog.items[itemNumber].name
+  $cardSubTitle.textContent = app.catalog.items[itemNumber].brand
   $img.src = app.catalog.items[itemNumber].imageUrl
   // $cardBody.textContent = app.catalog.items[itemNumber].brand
   $cardText.textContent = app.catalog.items[itemNumber].price
@@ -120,14 +124,21 @@ function displayItem(itemNumber) {
 
   $card.appendChild($img)
   $card.appendChild($cardTitle)
+  $card.appendChild($cardSubTitle)
   $card.appendChild($cardBody)
   $card.appendChild($cardText)
   $card.appendChild($link)
 
-  $app.appendChild($card)
+  return $card
 }
 
-// for (var i = 0; i < app.catalog.items.length; i++) {
-//   var item = displayItem(i)
-//   $app.appendChild(item)
-// }
+function renderCatalog() {
+  for (var i = 0; i < app.catalog.items.length; i++) {
+    var item = displayItem(i)
+    $app.appendChild(item)
+  }
+
+  $h1.textContent = 'Jamazon'
+}
+
+renderCatalog()
