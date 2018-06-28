@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 var app = {
   view: 'catalog',
   catalog: {
@@ -36,7 +37,7 @@ var app = {
         itemId: 4,
         name: 'Hi-Hats',
         brand: 'Paiste',
-        price: 400,
+        price: 400.00,
         description: 'A set of hats for people who spare no expense.',
         details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         origin: 'Switzerland',
@@ -46,7 +47,7 @@ var app = {
         itemId: 5,
         name: 'Giant Step',
         brand: 'Sonor',
-        price: 599,
+        price: 599.00,
         description: 'A pedal for metal drummers with only one foot.',
         details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         origin: 'Germany',
@@ -76,7 +77,7 @@ var app = {
         itemId: 8,
         name: 'TR-09',
         brand: 'Roland',
-        price: 399,
+        price: 399.00,
         description: 'A drum machine for people with no desk space.',
         details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         origin: 'Japan',
@@ -88,3 +89,45 @@ var app = {
     item: null
   }
 }
+
+var $app = document.getElementById('app')
+
+function displayItem(itemNumber) {
+
+  var $card = document.createElement('div')
+  var $img = document.createElement('img')
+  var $cardBody = document.createElement('div')
+  var $cardTitle = document.createElement('h5')
+  var $cardText = document.createElement('p')
+  var $link = document.createElement('a')
+
+  $card.setAttribute('class', 'card')
+  $card.setAttribute('style', 'width: 18rem;')
+  $img.setAttribute('class', 'card-img-top')
+  $img.setAttribute('src', 'src=.../1--px180/')
+  $img.setAttribute('alt', 'Card image cap')
+  $cardBody.setAttribute('class', 'card-body')
+  $cardTitle.setAttribute('class', 'card-title')
+  $cardText.setAttribute('class', 'card-text')
+  $link.setAttribute('href', '#')
+  $link.setAttribute('class', 'btn btn-outline-primary btn-sm')
+
+  $cardTitle.textContent = app.catalog.items[itemNumber].name
+  $img.src = app.catalog.items[itemNumber].imageUrl
+  // $cardBody.textContent = app.catalog.items[itemNumber].brand
+  $cardText.textContent = app.catalog.items[itemNumber].price
+  $link.textContent = 'Add to cart'
+
+  $card.appendChild($img)
+  $card.appendChild($cardTitle)
+  $card.appendChild($cardBody)
+  $card.appendChild($cardText)
+  $card.appendChild($link)
+
+  $app.appendChild($card)
+}
+
+// for (var i = 0; i < app.catalog.items.length; i++) {
+//   var item = displayItem(i)
+//   $app.appendChild(item)
+// }
