@@ -118,7 +118,6 @@ function displayItem(itemNumber) {
   $cardTitle.textContent = app.catalog.items[itemNumber].name
   $cardSubTitle.textContent = app.catalog.items[itemNumber].brand
   $img.src = app.catalog.items[itemNumber].imageUrl
-  // $cardBody.textContent = app.catalog.items[itemNumber].brand
   $cardText.textContent = app.catalog.items[itemNumber].price
   $link.textContent = 'Add to cart'
 
@@ -132,13 +131,18 @@ function displayItem(itemNumber) {
   return $card
 }
 
-function renderCatalog() {
+function buildCatalog() {
   for (var i = 0; i < app.catalog.items.length; i++) {
     var item = displayItem(i)
     $app.appendChild(item)
   }
-
+  $app.style.visibility = 'hidden'
   $h1.textContent = 'Jamazon'
+  $h1.style.visibility = 'hidden'
 }
 
-renderCatalog()
+function renderCatalog() {
+  buildCatalog()
+  $app.style.visibility = 'visible'
+  $h1.style.visibility = 'visible'
+}
