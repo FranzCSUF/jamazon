@@ -145,16 +145,16 @@ function renderApp(app) {
   renderCatalog.appendChild(finalBuild)
   $h1.textContent = 'Jamazon'
 }
-var test = {
-  itemId: 4,
-  name: 'Hi-Hats',
-  brand: 'Paiste',
-  price: 400.00,
-  description: 'A set of hats for people who spare no expense.',
-  details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-  origin: 'Switzerland',
-  imageUrl: 'https://goo.gl/LV9l8O'
-}
+// var test = {
+//   itemId: 4,
+//   name: 'Hi-Hats',
+//   brand: 'Paiste',
+//   price: 400.00,
+//   description: 'A set of hats for people who spare no expense.',
+//   details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+//   origin: 'Switzerland',
+//   imageUrl: 'https://goo.gl/LV9l8O'
+// }
 
 function details(item) {
 
@@ -178,9 +178,13 @@ function details(item) {
   secondCol.setAttribute('class', 'col')
   secondCol.style.marginTop = '50px'
   title.setAttribute('class', 'card-title')
+  title.style.fontSize = '36pt'
   subTitle.setAttribute('class', 'card-subtitle mb-2 text-muted')
+  subTitle.style.fontSize = '24pt'
   desc.setAttribute('class', 'card-text')
   price.setAttribute('class', 'card-text')
+  price.style.paddingTop = '75px'
+  price.style.fontSize = '18pt'
   link.setAttribute('href', '#')
   link.setAttribute('class', 'btn btn-outline-primary btn-sm')
 
@@ -205,6 +209,8 @@ function details(item) {
 
 }
 
-details(test)
+function match(id, catalog) {
+  return catalog.items[id]
+}
 
-// renderApp(app)
+renderApp(app)
