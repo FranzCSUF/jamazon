@@ -101,9 +101,11 @@ function card(item) {
   var $cardSubTitle = document.createElement('h6')
   var $cardText = document.createElement('p')
   var $link = document.createElement('a')
+  var id = item['itemId']
 
   $card.setAttribute('class', 'card')
   $card.setAttribute('style', 'width: 18rem;')
+  $card.setAttribute('data-item-id', id)
   $img.setAttribute('class', 'card-img-top')
   $img.setAttribute('src', 'src=.../1--px180/')
   $img.setAttribute('alt', 'Card image cap')
