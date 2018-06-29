@@ -90,10 +90,9 @@ var app = {
   }
 }
 
-var $app = document.getElementById('app')
 var $h1 = document.querySelector('h1')
 
-function displayItem(itemNumber) {
+function card(item) {
 
   var $card = document.createElement('div')
   var $img = document.createElement('img')
@@ -115,10 +114,10 @@ function displayItem(itemNumber) {
   $link.setAttribute('href', '#')
   $link.setAttribute('class', 'btn btn-outline-primary btn-sm')
 
-  $cardTitle.textContent = app.catalog.items[itemNumber].name
-  $cardSubTitle.textContent = app.catalog.items[itemNumber].brand
-  $img.src = app.catalog.items[itemNumber].imageUrl
-  $cardText.textContent = app.catalog.items[itemNumber].price
+  $cardTitle.textContent = item['name']
+  $cardSubTitle.textContent = item['brand']
+  $img.src = item['imageUrl']
+  $cardText.textContent = item['price']
   $link.textContent = 'Add to cart'
 
   $card.appendChild($img)
@@ -131,18 +130,19 @@ function displayItem(itemNumber) {
   return $card
 }
 
-function buildCatalog() {
-  for (var i = 0; i < app.catalog.items.length; i++) {
-    var item = displayItem(i)
-    $app.appendChild(item)
+function buildCatalog(itemList) {
+  var $divItems = document.createElement('div')
+  for (var i = 0; i < itemList.length; i++) {
+    var itemCard = card(itemList[i])
+    $divItems.appendChild(itemCard)
   }
-  $app.style.visibility = 'hidden'
-  $h1.textContent = 'Jamazon'
-  $h1.style.visibility = 'hidden'
+  return $divItems
 }
 
-function renderCatalog() {
-  buildCatalog()
-  $app.style.visibility = 'visible'
-  $h1.style.visibility = 'visible'
+function renderApp(app) {
+  var finalBuild = buildCatalog(app.catalog['items'])
+  var renderCatalog = document.querySelector("[data-view='catalog']")
+  renderCatalog.appendChild(finalBuild)
+  $h1.textContent = 'Jamazon'
+
 }
