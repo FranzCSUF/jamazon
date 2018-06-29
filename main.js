@@ -145,3 +145,5 @@ function renderApp(app) {
   renderCatalog.appendChild(finalBuild)
   $h1.textContent = 'Jamazon'
 }
+
+renderApp(app)
