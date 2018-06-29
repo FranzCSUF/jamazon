@@ -145,5 +145,66 @@ function renderApp(app) {
   renderCatalog.appendChild(finalBuild)
   $h1.textContent = 'Jamazon'
 }
+var test = {
+  itemId: 4,
+  name: 'Hi-Hats',
+  brand: 'Paiste',
+  price: 400.00,
+  description: 'A set of hats for people who spare no expense.',
+  details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+  origin: 'Switzerland',
+  imageUrl: 'https://goo.gl/LV9l8O'
+}
 
-renderApp(app)
+function details(item) {
+
+  var container = document.createElement('div')
+  var row = document.createElement('div')
+  var firstCol = document.createElement('div')
+  var img = document.createElement('img')
+  var secondCol = document.createElement('div')
+  var title = document.createElement('h5')
+  var subTitle = document.createElement('h6')
+  var desc = document.createElement('p')
+  var price = document.createElement('p')
+  var link = document.createElement('a')
+
+  container.setAttribute('class', 'container')
+  container.style.backgroundColor = 'white'
+  row.setAttribute('class', 'row')
+  firstCol.setAttribute('class', 'col')
+  img.setAttribute('class', 'card-img-top')
+  img.setAttribute('src', 'src=.../1--px180/')
+  secondCol.setAttribute('class', 'col')
+  secondCol.style.marginTop = '50px'
+  title.setAttribute('class', 'card-title')
+  subTitle.setAttribute('class', 'card-subtitle mb-2 text-muted')
+  desc.setAttribute('class', 'card-text')
+  price.setAttribute('class', 'card-text')
+  link.setAttribute('href', '#')
+  link.setAttribute('class', 'btn btn-outline-primary btn-sm')
+
+  img.src = item['imageUrl']
+  title.textContent = item['name']
+  subTitle.textContent = item['brand']
+  desc.textContent = item['description']
+  price.textContent = item['price']
+  link.textContent = 'Add to cart'
+
+  container.appendChild(row)
+  row.appendChild(firstCol)
+  firstCol.appendChild(img)
+  row.appendChild(secondCol)
+  secondCol.appendChild(title)
+  secondCol.appendChild(subTitle)
+  secondCol.appendChild(desc)
+  secondCol.appendChild(price)
+  secondCol.appendChild(link)
+
+  document.body.appendChild(container)
+
+}
+
+details(test)
+
+// renderApp(app)
