@@ -144,5 +144,4 @@ function renderApp(app) {
   var renderCatalog = document.querySelector("[data-view='catalog']")
   renderCatalog.appendChild(finalBuild)
   $h1.textContent = 'Jamazon'
-
 }
