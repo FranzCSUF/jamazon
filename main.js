@@ -90,6 +90,7 @@ var app = {
   }
 }
 
+var renderCatalog = document.querySelector("[data-view='catalog']")
 var $h1 = document.querySelector('h1')
 
 function card(item) {
@@ -101,11 +102,10 @@ function card(item) {
   var $cardSubTitle = document.createElement('h6')
   var $cardText = document.createElement('p')
   var $link = document.createElement('a')
-  var id = item['itemId']
 
   $card.setAttribute('class', 'card')
   $card.setAttribute('style', 'width: 18rem;')
-  $card.setAttribute('data-item-id', id)
+  $card.setAttribute('data-item-id', item['itemId'])
   $img.setAttribute('class', 'card-img-top')
   $img.setAttribute('src', 'src=.../1--px180/')
   $img.setAttribute('alt', 'Card image cap')
@@ -143,20 +143,11 @@ function buildCatalog(itemList) {
 
 function renderApp(app) {
   var finalBuild = buildCatalog(app.catalog['items'])
-  var renderCatalog = document.querySelector("[data-view='catalog']")
   renderCatalog.appendChild(finalBuild)
   $h1.textContent = 'Jamazon'
 }
-// var test = {
-//   itemId: 4,
-//   name: 'Hi-Hats',
-//   brand: 'Paiste',
-//   price: 400.00,
-//   description: 'A set of hats for people who spare no expense.',
-//   details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-//   origin: 'Switzerland',
-//   imageUrl: 'https://goo.gl/LV9l8O'
-// }
+
+renderApp(app)
 
 function details(item) {
 
@@ -174,18 +165,20 @@ function details(item) {
   container.setAttribute('class', 'container')
   container.style.backgroundColor = 'white'
   row.setAttribute('class', 'row')
-  firstCol.setAttribute('class', 'col')
+  firstCol.setAttribute('class', 'col col-lg-4')
+  firstCol.style.marginTop = '50px'
   img.setAttribute('class', 'card-img-top')
   img.setAttribute('src', 'src=.../1--px180/')
   secondCol.setAttribute('class', 'col')
-  secondCol.style.marginTop = '50px'
+  secondCol.style.padding = '50px'
+  secondCol.style.textAlign = 'left'
   title.setAttribute('class', 'card-title')
   title.style.fontSize = '36pt'
   subTitle.setAttribute('class', 'card-subtitle mb-2 text-muted')
   subTitle.style.fontSize = '24pt'
   desc.setAttribute('class', 'card-text')
   price.setAttribute('class', 'card-text')
-  price.style.paddingTop = '75px'
+  price.style.paddingTop = '20px'
   price.style.fontSize = '18pt'
   link.setAttribute('href', '#')
   link.setAttribute('class', 'btn btn-outline-primary btn-sm')
@@ -193,7 +186,7 @@ function details(item) {
   img.src = item['imageUrl']
   title.textContent = item['name']
   subTitle.textContent = item['brand']
-  desc.textContent = item['description']
+  desc.textContent = item['details']
   price.textContent = item['price']
   link.textContent = 'Add to cart'
 
@@ -207,12 +200,24 @@ function details(item) {
   secondCol.appendChild(price)
   secondCol.appendChild(link)
 
-  document.body.appendChild(container)
+  var finalBuild = buildCatalog(app.catalog['items'])
+  renderCatalog.appendChild(container)
+  $h1.textContent = 'Jamazon'
 
 }
 
 function match(id, catalog) {
-  return catalog.items[id]
+  var match = null
+  for (var i = 0; i < catalog.items.length; i++) {
+    if (id === catalog.items[i].itemId) {
+      match = catalog.items[i]
+    }
+  }
+  return match
 }
 
-renderApp(app)
+renderCatalog.addEventListener('click', function (event) {
+  var elt = event.target.closest('.card')
+  app.view = 'details'
+  app.details = elt
+})
