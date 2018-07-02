@@ -159,7 +159,14 @@ function renderApp(app) {
     btn.addEventListener('click', function (event) {
       app.cart.items.push(app.details.item)
       cartBadge.textContent = '(' + (app.cart.items.length) + ')'
+      // app.view = 'catalog'
+    })
+
+    var btnBack = document.getElementById('buttonBack')
+    btnBack.addEventListener('click', function (event) {
       app.view = 'catalog'
+      view(app.view)
+      renderApp(app)
     })
   }
 }
@@ -252,5 +259,6 @@ function view(viewName) {
   }
   else {
     renderDetails.setAttribute('class', 'hidden')
+    renderCatalog.removeAttribute('class', 'hidden')
   }
 }
