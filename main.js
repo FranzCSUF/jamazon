@@ -95,7 +95,6 @@ var app = {
 
 var renderCatalog = document.querySelector("[data-view='catalog']")
 var renderDetails = document.querySelector("[data-view='details']")
-var renderCart = document.querySelector("[data-view='cart']")
 var $h1 = document.querySelector('h1')
 
 function card(item) {
@@ -162,10 +161,6 @@ function renderApp(app) {
       cartBadge.textContent = '(' + (app.cart.items.length) + ')'
       app.view = 'catalog'
     })
-  }
-  else if (app.view === 'cart') {
-    var cartView = buildCart(app.cart.items)
-    renderDetails.appendChild(cartView)
   }
 }
 
@@ -252,12 +247,5 @@ function view(viewName) {
   }
   else {
     renderDetails.setAttribute('class', 'hidden')
-  }
-}
-
-function buildCart(cartList) {
-  for (var i = 0; i < cartList.length; i++) {
-    var cartItem = details(cartList[i])
-    renderCart.appendChild(cartItem)
   }
 }
