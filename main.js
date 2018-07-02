@@ -143,9 +143,15 @@ function buildCatalog(itemList) {
 }
 
 function renderApp(app) {
-  var finalBuild = buildCatalog(app.catalog['items'])
-  renderCatalog.appendChild(finalBuild)
-  $h1.textContent = 'Jamazon'
+  if (app.view === 'catalog') {
+    var finalBuild = buildCatalog(app.catalog['items'])
+    renderCatalog.appendChild(finalBuild)
+    $h1.textContent = 'Jamazon'
+  }
+  else if (app.view === 'details') {
+    var detailsView = details(app.details.item)
+    renderDetails.appendChild(detailsView)
+  }
 }
 
 renderApp(app)
@@ -201,9 +207,10 @@ function details(item) {
   secondCol.appendChild(price)
   secondCol.appendChild(link)
 
-  var finalBuild = buildCatalog(app.catalog['items'])
-  renderCatalog.appendChild(container)
-  $h1.textContent = 'Jamazon'
+  return container
+  // var finalBuild = buildCatalog(app.catalog['items'])
+  // renderDetails.appendChild(container)
+  // $h1.textContent = 'Jamazon'
 
 }
 
@@ -220,7 +227,12 @@ function match(id, catalog) {
 renderCatalog.addEventListener('click', function (event) {
   var elt = event.target.closest('.card')
   app.view = 'details'
-  app.details = elt
+  view(app.view)
+  var itemId = parseInt(elt.getAttribute('data-item-id'))
+  app.details.item = match(itemId, app.catalog)
+  renderApp(app)
+  // console.log(elt.getAttribute('data-item-id'))
+  // console.log(itemId)
 })
 
 function view(viewName) {
