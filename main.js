@@ -208,9 +208,6 @@ function details(item) {
   secondCol.appendChild(link)
 
   return container
-  // var finalBuild = buildCatalog(app.catalog['items'])
-  // renderDetails.appendChild(container)
-  // $h1.textContent = 'Jamazon'
 
 }
 
@@ -231,8 +228,7 @@ renderCatalog.addEventListener('click', function (event) {
   var itemId = parseInt(elt.getAttribute('data-item-id'))
   app.details.item = match(itemId, app.catalog)
   renderApp(app)
-  // console.log(elt.getAttribute('data-item-id'))
-  // console.log(itemId)
+
 })
 
 function view(viewName) {
