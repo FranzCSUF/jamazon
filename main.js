@@ -160,7 +160,7 @@ function renderApp(app) {
     btn.addEventListener('click', function (event) {
       app.cart.items.push(app.details.item)
       cartBadge.textContent = '(' + (app.cart.items.length) + ')'
-      renderApp(app)
+      app.details.item = null
     })
   }
   else if (app.view === 'cart') {
