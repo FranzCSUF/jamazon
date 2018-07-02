@@ -90,6 +90,8 @@ var app = {
   }
 }
 
+var renderCatalog = document.querySelector("[data-view='catalog']")
+var renderDetails = document.querySelector("[data-view='details']")
 var $h1 = document.querySelector('h1')
 
 function card(item) {
@@ -104,6 +106,7 @@ function card(item) {
 
   $card.setAttribute('class', 'card')
   $card.setAttribute('style', 'width: 18rem;')
+  $card.setAttribute('data-item-id', item['itemId'])
   $img.setAttribute('class', 'card-img-top')
   $img.setAttribute('src', 'src=.../1--px180/')
   $img.setAttribute('alt', 'Card image cap')
@@ -140,10 +143,99 @@ function buildCatalog(itemList) {
 }
 
 function renderApp(app) {
-  var finalBuild = buildCatalog(app.catalog['items'])
-  var renderCatalog = document.querySelector("[data-view='catalog']")
-  renderCatalog.appendChild(finalBuild)
-  $h1.textContent = 'Jamazon'
+  if (app.view === 'catalog') {
+    var finalBuild = buildCatalog(app.catalog['items'])
+    renderCatalog.appendChild(finalBuild)
+    $h1.textContent = 'Jamazon'
+  }
+  else if (app.view === 'details') {
+    var detailsView = details(app.details.item)
+    renderDetails.appendChild(detailsView)
+  }
 }
 
 renderApp(app)
+
+function details(item) {
+
+  var container = document.createElement('div')
+  var row = document.createElement('div')
+  var firstCol = document.createElement('div')
+  var img = document.createElement('img')
+  var secondCol = document.createElement('div')
+  var title = document.createElement('h5')
+  var subTitle = document.createElement('h6')
+  var desc = document.createElement('p')
+  var price = document.createElement('p')
+  var link = document.createElement('a')
+
+  container.setAttribute('class', 'container')
+  container.style.backgroundColor = 'white'
+  row.setAttribute('class', 'row')
+  firstCol.setAttribute('class', 'col col-lg-4')
+  firstCol.style.marginTop = '50px'
+  img.setAttribute('class', 'card-img-top')
+  img.setAttribute('src', 'src=.../1--px180/')
+  secondCol.setAttribute('class', 'col')
+  secondCol.style.padding = '50px'
+  secondCol.style.textAlign = 'left'
+  title.setAttribute('class', 'card-title')
+  title.style.fontSize = '36pt'
+  subTitle.setAttribute('class', 'card-subtitle mb-2 text-muted')
+  subTitle.style.fontSize = '24pt'
+  desc.setAttribute('class', 'card-text')
+  price.setAttribute('class', 'card-text')
+  price.style.paddingTop = '20px'
+  price.style.fontSize = '18pt'
+  link.setAttribute('href', '#')
+  link.setAttribute('class', 'btn btn-outline-primary btn-sm')
+
+  img.src = item['imageUrl']
+  title.textContent = item['name']
+  subTitle.textContent = item['brand']
+  desc.textContent = item['details']
+  price.textContent = item['price']
+  link.textContent = 'Add to cart'
+
+  container.appendChild(row)
+  row.appendChild(firstCol)
+  firstCol.appendChild(img)
+  row.appendChild(secondCol)
+  secondCol.appendChild(title)
+  secondCol.appendChild(subTitle)
+  secondCol.appendChild(desc)
+  secondCol.appendChild(price)
+  secondCol.appendChild(link)
+
+  return container
+
+}
+
+function match(id, catalog) {
+  var match = null
+  for (var i = 0; i < catalog.items.length; i++) {
+    if (id === catalog.items[i].itemId) {
+      match = catalog.items[i]
+    }
+  }
+  return match
+}
+
+renderCatalog.addEventListener('click', function (event) {
+  var elt = event.target.closest('.card')
+  app.view = 'details'
+  view(app.view)
+  var itemId = parseInt(elt.getAttribute('data-item-id'))
+  app.details.item = match(itemId, app.catalog)
+  renderApp(app)
+
+})
+
+function view(viewName) {
+  if (viewName !== renderCatalog.getAttribute('data-view')) {
+    renderCatalog.setAttribute('class', 'hidden')
+  }
+  else {
+    renderDetails.setAttribute('class', 'hidden')
+  }
+}
