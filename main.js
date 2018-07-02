@@ -178,6 +178,7 @@ function details(item) {
   var desc = document.createElement('p')
   var price = document.createElement('p')
   var link = document.createElement('a')
+  var linkBack = document.createElement('a')
 
   container.setAttribute('class', 'container')
   container.style.backgroundColor = 'white'
@@ -200,6 +201,8 @@ function details(item) {
   link.setAttribute('href', '#')
   link.setAttribute('class', 'btn btn-outline-primary btn-sm')
   link.setAttribute('id', 'button')
+  linkBack.setAttribute('class', 'btn btn-outline-primary btn-sm')
+  linkBack.setAttribute('id', 'buttonBack')
 
   img.src = item['imageUrl']
   title.textContent = item['name']
@@ -207,6 +210,7 @@ function details(item) {
   desc.textContent = item['details']
   price.textContent = item['price']
   link.textContent = 'Add to cart'
+  linkBack.textContent = 'Back'
 
   container.appendChild(row)
   row.appendChild(firstCol)
@@ -217,6 +221,7 @@ function details(item) {
   secondCol.appendChild(desc)
   secondCol.appendChild(price)
   secondCol.appendChild(link)
+  secondCol.appendChild(linkBack)
 
   return container
 
