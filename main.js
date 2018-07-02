@@ -91,6 +91,7 @@ var app = {
 }
 
 var renderCatalog = document.querySelector("[data-view='catalog']")
+var renderDetails = document.querySelector("[data-view='details']")
 var $h1 = document.querySelector('h1')
 
 function card(item) {
@@ -221,3 +222,12 @@ renderCatalog.addEventListener('click', function (event) {
   app.view = 'details'
   app.details = elt
 })
+
+function view(viewName) {
+  if (viewName !== renderCatalog.getAttribute('data-view')) {
+    renderCatalog.setAttribute('class', 'hidden')
+  }
+  else {
+    renderDetails.setAttribute('class', 'hidden')
+  }
+}
