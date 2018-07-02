@@ -159,6 +159,7 @@ function renderApp(app) {
     var cartBadge = document.querySelector('span')
     btn.addEventListener('click', function (event) {
       app.cart.items.push(app.details.item)
+      cartBadge.textContent = '(' + (app.cart.items.length) + ')'
     })
   }
   else if (app.view === 'cart') {
