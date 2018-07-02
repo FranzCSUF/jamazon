@@ -89,7 +89,7 @@ var app = {
     item: null
   },
   cart: {
-    items: null
+    items: []
   }
 }
 
@@ -155,6 +155,11 @@ function renderApp(app) {
   else if (app.view === 'details') {
     var detailsView = details(app.details.item)
     renderDetails.appendChild(detailsView)
+    var btn = document.getElementById('button')
+    var cartBadge = document.querySelector('span')
+    btn.addEventListener('click', function (event) {
+      app.cart.items.push(app.details.item)
+    })
   }
   else if (app.view === 'cart') {
     var cartView = buildCart(app.cart.items)
@@ -197,6 +202,7 @@ function details(item) {
   price.style.fontSize = '18pt'
   link.setAttribute('href', '#')
   link.setAttribute('class', 'btn btn-outline-primary btn-sm')
+  link.setAttribute('id', 'button')
 
   img.src = item['imageUrl']
   title.textContent = item['name']
