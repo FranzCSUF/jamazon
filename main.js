@@ -231,7 +231,6 @@ renderCatalog.addEventListener('click', function (event) {
   var itemId = parseInt(elt.getAttribute('data-item-id'))
   app.details.item = match(itemId, app.catalog)
   renderApp(app)
-
 })
 
 function view(viewName) {
@@ -241,4 +240,13 @@ function view(viewName) {
   else {
     renderDetails.setAttribute('class', 'hidden')
   }
+}
+
+function buildCart(cartList) {
+  var divCart = document.createElement('div')
+  for (var i = 0; i < cartList.length; i++) {
+    var cartItem = details(cartList[i])
+    divCart.appendChild(cartItem)
+  }
+  return divCart
 }
