@@ -87,6 +87,9 @@ var app = {
   },
   details: {
     item: null
+  },
+  cart: {
+    items: []
   }
 }
 
@@ -151,6 +154,13 @@ function renderApp(app) {
   else if (app.view === 'details') {
     var detailsView = details(app.details.item)
     renderDetails.appendChild(detailsView)
+    var btn = document.getElementById('button')
+    var cartBadge = document.querySelector('span')
+    btn.addEventListener('click', function (event) {
+      app.cart.items.push(app.details.item)
+      cartBadge.textContent = '(' + (app.cart.items.length) + ')'
+      app.view = 'catalog'
+    })
   }
 }
 
@@ -189,6 +199,7 @@ function details(item) {
   price.style.fontSize = '18pt'
   link.setAttribute('href', '#')
   link.setAttribute('class', 'btn btn-outline-primary btn-sm')
+  link.setAttribute('id', 'button')
 
   img.src = item['imageUrl']
   title.textContent = item['name']
@@ -228,7 +239,6 @@ renderCatalog.addEventListener('click', function (event) {
   var itemId = parseInt(elt.getAttribute('data-item-id'))
   app.details.item = match(itemId, app.catalog)
   renderApp(app)
-
 })
 
 function view(viewName) {
