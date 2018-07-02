@@ -160,7 +160,7 @@ function renderApp(app) {
     btn.addEventListener('click', function (event) {
       app.cart.items.push(app.details.item)
       cartBadge.textContent = '(' + (app.cart.items.length) + ')'
-      app.details.item = null
+      app.view = 'catalog'
     })
   }
   else if (app.view === 'cart') {
@@ -256,10 +256,8 @@ function view(viewName) {
 }
 
 function buildCart(cartList) {
-  var divCart = document.createElement('div')
   for (var i = 0; i < cartList.length; i++) {
     var cartItem = details(cartList[i])
-    divCart.appendChild(cartItem)
+    renderCart.appendChild(cartItem)
   }
-  return divCart
 }
