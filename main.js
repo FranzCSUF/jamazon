@@ -319,9 +319,20 @@ function cartView(item) {
 
 function buildCart(cart) {
   var $cartItems = document.createElement('div')
+  var cartTotal = 0
   for (var i = 0; i < cart.items.length; i++) {
     var cartItem = cartView(cart.items[i])
     $cartItems.appendChild(cartItem)
+    cartTotal += cart.items[i].price
   }
+  $h1.textContent = 'Cart'
+  var cartItemsCount = document.createElement('div')
+  cartItemsCount.style.textAlign = 'right'
+  cartItemsCount.textContent = app.cart.items.length + ' Items'
+  var cartTotalEl = document.createElement('div')
+  cartTotalEl.style.textAlign = 'right'
+  cartTotalEl.textContent = 'Total: $' + cartTotal
+  $cartItems.appendChild(cartItemsCount)
+  $cartItems.appendChild(cartTotalEl)
   return $cartItems
 }
