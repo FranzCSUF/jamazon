@@ -154,20 +154,21 @@ function renderApp(app) {
   else if (app.view === 'details') {
     var detailsView = details(app.details.item)
     renderDetails.appendChild(detailsView)
+
     var btn = document.getElementById('button')
     var cartBadge = document.querySelector('span')
-    btn.addEventListener('click', function (event) {
+    btn.onclick = function (event) {
       app.cart.items.push(app.details.item)
       cartBadge.textContent = '(' + (app.cart.items.length) + ')'
-      // app.view = 'catalog'
-    })
+    }
 
     var btnBack = document.getElementById('buttonBack')
-    btnBack.addEventListener('click', function (event) {
+    btnBack.onclick = function (event) {
       app.view = 'catalog'
+      var $details = document.getElementById('details')
+      renderDetails.removeChild($details)
       view(app.view)
-      renderApp(app)
-    })
+    }
   }
 }
 
@@ -188,6 +189,7 @@ function details(item) {
   var linkBack = document.createElement('a')
 
   container.setAttribute('class', 'container')
+  container.setAttribute('id', 'details')
   container.style.backgroundColor = 'white'
   row.setAttribute('class', 'row')
   firstCol.setAttribute('class', 'col col-lg-4')
@@ -254,11 +256,12 @@ renderCatalog.addEventListener('click', function (event) {
 })
 
 function view(viewName) {
-  if (viewName !== renderCatalog.getAttribute('data-view')) {
-    renderCatalog.setAttribute('class', 'hidden')
-  }
-  else {
+  if (viewName === renderCatalog.getAttribute('data-view')) {
     renderDetails.setAttribute('class', 'hidden')
     renderCatalog.removeAttribute('class', 'hidden')
+  }
+  else if (viewName === renderDetails.getAttribute('data-view')) {
+    renderCatalog.setAttribute('class', 'hidden')
+    renderDetails.removeAttribute('class', 'hidden')
   }
 }
