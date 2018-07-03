@@ -154,13 +154,21 @@ function renderApp(app) {
   else if (app.view === 'details') {
     var detailsView = details(app.details.item)
     renderDetails.appendChild(detailsView)
+
     var btn = document.getElementById('button')
     var cartBadge = document.querySelector('span')
-    btn.addEventListener('click', function (event) {
+    btn.onclick = function (event) {
       app.cart.items.push(app.details.item)
       cartBadge.textContent = '(' + (app.cart.items.length) + ')'
+    }
+
+    var btnBack = document.getElementById('buttonBack')
+    btnBack.onclick = function (event) {
       app.view = 'catalog'
-    })
+      var $details = document.getElementById('details')
+      renderDetails.removeChild($details)
+      view(app.view)
+    }
   }
 }
 
@@ -178,8 +186,10 @@ function details(item) {
   var desc = document.createElement('p')
   var price = document.createElement('p')
   var link = document.createElement('a')
+  var linkBack = document.createElement('a')
 
   container.setAttribute('class', 'container')
+  container.setAttribute('id', 'details')
   container.style.backgroundColor = 'white'
   row.setAttribute('class', 'row')
   firstCol.setAttribute('class', 'col col-lg-4')
@@ -200,6 +210,8 @@ function details(item) {
   link.setAttribute('href', '#')
   link.setAttribute('class', 'btn btn-outline-primary btn-sm')
   link.setAttribute('id', 'button')
+  linkBack.setAttribute('class', 'btn btn-outline-primary btn-sm')
+  linkBack.setAttribute('id', 'buttonBack')
 
   img.src = item['imageUrl']
   title.textContent = item['name']
@@ -207,6 +219,7 @@ function details(item) {
   desc.textContent = item['details']
   price.textContent = item['price']
   link.textContent = 'Add to cart'
+  linkBack.textContent = 'Back'
 
   container.appendChild(row)
   row.appendChild(firstCol)
@@ -217,6 +230,7 @@ function details(item) {
   secondCol.appendChild(desc)
   secondCol.appendChild(price)
   secondCol.appendChild(link)
+  secondCol.appendChild(linkBack)
 
   return container
 
@@ -242,10 +256,12 @@ renderCatalog.addEventListener('click', function (event) {
 })
 
 function view(viewName) {
-  if (viewName !== renderCatalog.getAttribute('data-view')) {
-    renderCatalog.setAttribute('class', 'hidden')
-  }
-  else {
+  if (viewName === renderCatalog.getAttribute('data-view')) {
     renderDetails.setAttribute('class', 'hidden')
+    renderCatalog.removeAttribute('class', 'hidden')
+  }
+  else if (viewName === renderDetails.getAttribute('data-view')) {
+    renderCatalog.setAttribute('class', 'hidden')
+    renderDetails.removeAttribute('class', 'hidden')
   }
 }

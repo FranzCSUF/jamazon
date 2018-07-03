@@ -40,3 +40,8 @@ h1 {
 .hidden {
   display: none;
 }
+
+#buttonBack {
+  margin-left: 20px;
+  color: #007bff;
+}
