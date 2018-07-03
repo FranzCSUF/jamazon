@@ -352,8 +352,23 @@ function buildCart(cart) {
   cartTotalEl.style.fontSize = '24pt'
   cartTotalEl.textContent = 'Total: $' + cartTotal
 
+  var buttonShop = document.createElement('button')
+  buttonShop.textContent = 'Continue Shopping'
+  buttonShop.style.fontSize = '18pt'
+
+  buttonShop.onclick = function (event) {
+    app.view = 'catalog'
+    view(app.view)
+    var catOld = document.getElementById('catElement')
+    renderCatalog.removeChild(catOld)
+    var $cartContainer = document.getElementById('cartContainer')
+    renderCart.removeChild($cartContainer)
+    renderApp(app)
+  }
+
   $cartItems.appendChild(cartItemsCount)
   $cartItems.appendChild(cartTotalEl)
+  $cartItems.appendChild(buttonShop)
 
   return $cartItems
 }
