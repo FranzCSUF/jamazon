@@ -95,7 +95,9 @@ var app = {
 
 var renderCatalog = document.querySelector("[data-view='catalog']")
 var renderDetails = document.querySelector("[data-view='details']")
+var renderCart = document.querySelector("[data-view='cart']")
 var $h1 = document.querySelector('h1')
+var cartBadge = document.querySelector('span')
 
 function card(item) {
 
@@ -138,6 +140,7 @@ function card(item) {
 
 function buildCatalog(itemList) {
   var $divItems = document.createElement('div')
+  $divItems.setAttribute('id', 'catElement')
   for (var i = 0; i < itemList.length; i++) {
     var itemCard = card(itemList[i])
     $divItems.appendChild(itemCard)
@@ -156,7 +159,6 @@ function renderApp(app) {
     renderDetails.appendChild(detailsView)
 
     var btn = document.getElementById('button')
-    var cartBadge = document.querySelector('span')
     btn.onclick = function (event) {
       app.cart.items.push(app.details.item)
       cartBadge.textContent = '(' + (app.cart.items.length) + ')'
@@ -169,6 +171,9 @@ function renderApp(app) {
       renderDetails.removeChild($details)
       view(app.view)
     }
+  }
+  else {
+    renderCart.appendChild(buildCart(app.cart))
   }
 }
 
@@ -258,11 +263,18 @@ renderCatalog.addEventListener('click', function (event) {
 function view(viewName) {
   if (viewName === renderCatalog.getAttribute('data-view')) {
     renderDetails.setAttribute('class', 'hidden')
+    renderCart.setAttribute('class', 'hidden')
     renderCatalog.removeAttribute('class', 'hidden')
   }
   else if (viewName === renderDetails.getAttribute('data-view')) {
     renderCatalog.setAttribute('class', 'hidden')
+    renderCart.setAttribute('class', 'hidden')
     renderDetails.removeAttribute('class', 'hidden')
+  }
+  else {
+    renderDetails.setAttribute('class', 'hidden')
+    renderCatalog.setAttribute('class', 'hidden')
+    renderCart.removeAttribute('class', 'hidden')
   }
 }
 
@@ -319,6 +331,7 @@ function cartView(item) {
 
 function buildCart(cart) {
   var $cartItems = document.createElement('div')
+  $cartItems.setAttribute('id', 'cartContainer')
   var cartTotal = 0
   for (var i = 0; i < cart.items.length; i++) {
     var cartItem = cartView(cart.items[i])
@@ -326,13 +339,27 @@ function buildCart(cart) {
     cartTotal += cart.items[i].price
   }
   $h1.textContent = 'Cart'
+
   var cartItemsCount = document.createElement('div')
   cartItemsCount.style.textAlign = 'right'
+  cartItemsCount.style.marginRight = '75px'
+  cartItemsCount.style.fontSize = '24pt'
   cartItemsCount.textContent = app.cart.items.length + ' Items'
+
   var cartTotalEl = document.createElement('div')
   cartTotalEl.style.textAlign = 'right'
+  cartTotalEl.style.marginRight = '75px'
+  cartTotalEl.style.fontSize = '24pt'
   cartTotalEl.textContent = 'Total: $' + cartTotal
+
   $cartItems.appendChild(cartItemsCount)
   $cartItems.appendChild(cartTotalEl)
+
   return $cartItems
+}
+
+cartBadge.onclick = function (event) {
+  app.view = 'cart'
+  view(app.view)
+  renderApp(app)
 }
