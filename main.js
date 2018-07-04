@@ -105,9 +105,10 @@ function card(item) {
   var $card = document.createElement('div')
   var $img = document.createElement('img')
   var $cardBody = document.createElement('div')
-  var $cardTitle = document.createElement('h5')
-  var $cardSubTitle = document.createElement('h6')
-  var $cardText = document.createElement('p')
+  var titleDiv = document.createElement('div')
+  var subTitleDiv = document.createElement('div')
+  var descDiv = document.createElement('div')
+  var priceDiv = document.createElement('div')
 
   $card.setAttribute('class', 'card')
   $card.setAttribute('style', 'width: 18rem;')
@@ -116,20 +117,23 @@ function card(item) {
   $img.setAttribute('src', 'src=.../1--px180/')
   $img.setAttribute('alt', 'Card image cap')
   $cardBody.setAttribute('class', 'card-body')
-  $cardTitle.setAttribute('class', 'card-title')
-  $cardSubTitle.setAttribute('class', 'card-subtitle mb-2 text-muted')
-  $cardText.setAttribute('class', 'card-text')
+  titleDiv.setAttribute('class', 'card-title')
+  titleDiv.setAttribute('id', 'titleDiv')
+  subTitleDiv.setAttribute('class', 'card-subtitle mb-2 text-muted')
+  priceDiv.setAttribute('id', 'priceCat')
 
-  $cardTitle.textContent = item['name']
-  $cardSubTitle.textContent = item['brand']
+  titleDiv.textContent = item['name']
+  subTitleDiv.textContent = item['brand']
+  descDiv.textContent = item['description']
   $img.src = item['imageUrl']
-  $cardText.textContent = '$' + parseFloat(item['price']).toFixed(2)
+  priceDiv.textContent = '$' + parseFloat(item['price']).toFixed(2)
 
+  $cardBody.appendChild(titleDiv)
+  $cardBody.appendChild(subTitleDiv)
+  $cardBody.appendChild(descDiv)
+  $cardBody.appendChild(priceDiv)
   $card.appendChild($img)
-  $card.appendChild($cardTitle)
-  $card.appendChild($cardSubTitle)
   $card.appendChild($cardBody)
-  $card.appendChild($cardText)
 
   return $card
 }
