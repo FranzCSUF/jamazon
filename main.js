@@ -123,7 +123,7 @@ function card(item) {
   $cardTitle.textContent = item['name']
   $cardSubTitle.textContent = item['brand']
   $img.src = item['imageUrl']
-  $cardText.textContent = item['price']
+  $cardText.textContent = '$' + parseFloat(item['price']).toFixed(2)
 
   $card.appendChild($img)
   $card.appendChild($cardTitle)
@@ -223,7 +223,7 @@ function details(item) {
   title.textContent = item['name']
   subTitle.textContent = item['brand']
   desc.textContent = item['details']
-  price.textContent = item['price']
+  price.textContent = '$' + parseFloat(item['price']).toFixed(2)
   link.textContent = 'Add to cart'
   linkBack.textContent = 'Back'
 
@@ -317,7 +317,7 @@ function cartView(item) {
   title.textContent = item['name']
   subTitle.textContent = item['brand']
   desc.textContent = item['description']
-  price.textContent = item['price']
+  price.textContent = '$' + parseFloat(item['price']).toFixed(2)
 
   container.appendChild(row)
   row.appendChild(firstCol)
@@ -350,7 +350,7 @@ function buildCart(cart) {
 
   var cartTotalEl = document.createElement('div')
   cartTotalEl.setAttribute('class', 'cart')
-  cartTotalEl.textContent = 'Total: $' + cartTotal
+  cartTotalEl.textContent = 'Total: $' + parseFloat(cartTotal).toFixed(2)
 
   var buttonDiv = document.createElement('div')
   var buttonShop = document.createElement('button')
