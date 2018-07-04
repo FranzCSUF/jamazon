@@ -107,7 +107,6 @@ function card(item) {
   var $cardTitle = document.createElement('h5')
   var $cardSubTitle = document.createElement('h6')
   var $cardText = document.createElement('p')
-  var $link = document.createElement('a')
 
   $card.setAttribute('class', 'card')
   $card.setAttribute('style', 'width: 18rem;')
@@ -119,21 +118,17 @@ function card(item) {
   $cardTitle.setAttribute('class', 'card-title')
   $cardSubTitle.setAttribute('class', 'card-subtitle mb-2 text-muted')
   $cardText.setAttribute('class', 'card-text')
-  $link.setAttribute('href', '#')
-  $link.setAttribute('class', 'btn btn-outline-primary btn-sm')
 
   $cardTitle.textContent = item['name']
   $cardSubTitle.textContent = item['brand']
   $img.src = item['imageUrl']
   $cardText.textContent = item['price']
-  $link.textContent = 'Add to cart'
 
   $card.appendChild($img)
   $card.appendChild($cardTitle)
   $card.appendChild($cardSubTitle)
   $card.appendChild($cardBody)
   $card.appendChild($cardText)
-  $card.appendChild($link)
 
   return $card
 }
@@ -330,7 +325,7 @@ function buildCart(cart) {
 
   var cartItemsCount = document.createElement('div')
   cartItemsCount.setAttribute('class', 'cart')
-  cartItemsCount.textContent = app.cart.items.length + ' Items'
+  cartItemsCount.textContent = app.cart.items.length + ' Item(s)'
 
   var cartTotalEl = document.createElement('div')
   cartTotalEl.setAttribute('class', 'cart')
