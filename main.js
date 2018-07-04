@@ -345,6 +345,8 @@ function buildCart(cart) {
   buttonShop.onclick = function (event) {
     app.view = 'catalog'
     view(app.view)
+    var $details = document.getElementById('details')
+    renderDetails.removeChild($details)
     var catOld = document.getElementById('catElement')
     renderCatalog.removeChild(catOld)
     var $cartContainer = document.getElementById('cartContainer')
