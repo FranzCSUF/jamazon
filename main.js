@@ -168,7 +168,14 @@ function renderApp(app) {
     }
   }
   else {
-    renderCart.appendChild(buildCart(app.cart))
+    var $cartContainer = document.getElementById('cartContainer')
+    if (renderCart.contains($cartContainer)) {
+      renderCart.removeChild($cartContainer)
+      renderCart.appendChild(buildCart(app.cart))
+    }
+    else {
+      renderCart.appendChild(buildCart(app.cart))
+    }
   }
 }
 
@@ -343,6 +350,18 @@ function buildCart(cart) {
 
   buttonShop.onclick = function (event) {
     app.view = 'catalog'
+    view(app.view)
+    var $details = document.getElementById('details')
+    renderDetails.removeChild($details)
+    var catOld = document.getElementById('catElement')
+    renderCatalog.removeChild(catOld)
+    var $cartContainer = document.getElementById('cartContainer')
+    renderCart.removeChild($cartContainer)
+    renderApp(app)
+  }
+
+  buttonCheckout.onclick = function (event) {
+    app.view = 'checkout'
     view(app.view)
     var $details = document.getElementById('details')
     renderDetails.removeChild($details)
