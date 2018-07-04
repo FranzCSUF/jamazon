@@ -195,23 +195,17 @@ function details(item) {
 
   container.setAttribute('class', 'container')
   container.setAttribute('id', 'details')
-  container.style.backgroundColor = 'white'
   row.setAttribute('class', 'row')
-  firstCol.setAttribute('class', 'col col-lg-4')
-  firstCol.style.marginTop = '50px'
+  firstCol.setAttribute('class', 'colCart col col-lg-4')
   img.setAttribute('class', 'card-img-top')
   img.setAttribute('src', 'src=.../1--px180/')
-  secondCol.setAttribute('class', 'col')
-  secondCol.style.padding = '50px'
-  secondCol.style.textAlign = 'left'
-  title.setAttribute('class', 'card-title')
-  title.style.fontSize = '36pt'
+  secondCol.setAttribute('class', 'secondCol col')
+  title.setAttribute('class', 'titleFontSize card-title')
   subTitle.setAttribute('class', 'card-subtitle mb-2 text-muted')
-  subTitle.style.fontSize = '24pt'
+  subTitle.setAttribute('class', 'subTitle')
   desc.setAttribute('class', 'card-text')
   price.setAttribute('class', 'card-text')
-  price.style.paddingTop = '20px'
-  price.style.fontSize = '18pt'
+  price.setAttribute('id', 'price')
   link.setAttribute('href', '#')
   link.setAttribute('class', 'btn btn-outline-primary btn-sm')
   link.setAttribute('id', 'button')
@@ -292,23 +286,17 @@ function cartView(item) {
 
   container.setAttribute('class', 'container')
   container.setAttribute('id', 'details')
-  container.style.backgroundColor = 'white'
   row.setAttribute('class', 'row')
-  firstCol.setAttribute('class', 'col col-lg-4')
-  firstCol.style.marginTop = '50px'
+  firstCol.setAttribute('class', 'colCart col col-lg-4')
   img.setAttribute('class', 'card-img-top')
   img.setAttribute('src', 'src=.../1--px180/')
-  secondCol.setAttribute('class', 'col')
-  secondCol.style.padding = '50px'
-  secondCol.style.textAlign = 'left'
-  title.setAttribute('class', 'card-title')
-  title.style.fontSize = '36pt'
+  secondCol.setAttribute('class', 'secondCol col')
+  title.setAttribute('class', 'titleFontSize card-title')
   subTitle.setAttribute('class', 'card-subtitle mb-2 text-muted')
-  subTitle.style.fontSize = '24pt'
+  subTitle.setAttribute('class', 'subTitle')
   desc.setAttribute('class', 'card-text')
   price.setAttribute('class', 'card-text')
-  price.style.paddingTop = '20px'
-  price.style.fontSize = '18pt'
+  price.setAttribute('id', 'price')
 
   img.src = item['imageUrl']
   title.textContent = item['name']
@@ -341,20 +329,18 @@ function buildCart(cart) {
   $h1.textContent = 'Cart'
 
   var cartItemsCount = document.createElement('div')
-  cartItemsCount.style.textAlign = 'right'
-  cartItemsCount.style.marginRight = '75px'
-  cartItemsCount.style.fontSize = '24pt'
+  cartItemsCount.setAttribute('class', 'cart')
   cartItemsCount.textContent = app.cart.items.length + ' Items'
 
   var cartTotalEl = document.createElement('div')
-  cartTotalEl.style.textAlign = 'right'
-  cartTotalEl.style.marginRight = '75px'
-  cartTotalEl.style.fontSize = '24pt'
+  cartTotalEl.setAttribute('class', 'cart')
   cartTotalEl.textContent = 'Total: $' + cartTotal
 
+  var buttonDiv = document.createElement('div')
   var buttonShop = document.createElement('button')
+  buttonDiv.appendChild(buttonShop)
+  buttonDiv.setAttribute('class', 'buttonShop')
   buttonShop.textContent = 'Continue Shopping'
-  buttonShop.style.fontSize = '18pt'
 
   buttonShop.onclick = function (event) {
     app.view = 'catalog'
@@ -368,7 +354,7 @@ function buildCart(cart) {
 
   $cartItems.appendChild(cartItemsCount)
   $cartItems.appendChild(cartTotalEl)
-  $cartItems.appendChild(buttonShop)
+  $cartItems.appendChild(buttonDiv)
 
   return $cartItems
 }
