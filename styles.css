@@ -11,6 +11,7 @@ body {
   font-size: 24pt;
   text-align: right;
   margin-top: 50px;
+  margin-bottom: 50px;
   margin-right: 60px;
 }
 
@@ -23,7 +24,11 @@ body {
 }
 
 .colCart {
-  margin-top: 100px;
+  margin-top: 15px;
+}
+
+.colDetails {
+  margin-top: 50px;
 }
 
 .secondCol {
@@ -81,11 +86,19 @@ h1 {
 }
 
 .subTitle {
-  font-size: 24pt;
+  font-size: 18pt;
 }
 
 .titleFontSize {
   font-size: 36pt;
+}
+
+.titleFontSizeCart {
+  font-size: 24pt;
+}
+
+.cardCart {
+  font-size: 18pt;
 }
 
 .buttonCheckout {
@@ -93,5 +106,26 @@ h1 {
 }
 
 .card-text {
-  font-size: 16pt;
+  font-size: 14pt;
+}
+
+#checkout {
+  width: 40%;
+  margin: 0 auto;
+  border-style: solid;
+  border-color: white;
+  padding: 80px;
+}
+
+.buttonPay {
+  text-align: center;
+  margin-top: 25px;
+}
+
+.cartPay {
+  text-align: right;
+}
+
+#details {
+  width: 60%;
 }
