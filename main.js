@@ -145,6 +145,7 @@ function buildCatalog(itemList) {
 }
 
 function renderApp(app) {
+  view(app.view)
   if (app.view === 'catalog') {
     var finalBuild = buildCatalog(app.catalog['items'])
     renderCatalog.appendChild(finalBuild)
@@ -447,9 +448,14 @@ function checkout(cart) {
 
   buttonPay.setAttribute('type', 'submit')
   buttonPay.setAttribute('class', 'btn btn-primary')
+  buttonPay.setAttribute('id', '$buttonPay')
   buttonPay.textContent = 'Pay'
   buttonPayDiv.appendChild(buttonPay)
   buttonPayDiv.setAttribute('class', 'buttonPay')
+
+  buttonPay.onclick = function (event) {
+    alert('Your order has been received!')
+  }
 
   form.appendChild(name)
   form.appendChild(nameLabel)
