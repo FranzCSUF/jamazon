@@ -333,9 +333,13 @@ function buildCart(cart) {
 
   var buttonDiv = document.createElement('div')
   var buttonShop = document.createElement('button')
+  var buttonCheckout = document.createElement('button')
   buttonDiv.appendChild(buttonShop)
+  buttonDiv.appendChild(buttonCheckout)
   buttonDiv.setAttribute('class', 'buttonShop')
+  buttonCheckout.setAttribute('class', 'buttonCheckout')
   buttonShop.textContent = 'Continue Shopping'
+  buttonCheckout.textContent = 'Checkout'
 
   buttonShop.onclick = function (event) {
     app.view = 'catalog'

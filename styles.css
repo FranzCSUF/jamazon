@@ -86,3 +86,7 @@ h1 {
 .titleFontSize {
   font-size: 36pt;
 }
+
+.buttonCheckout {
+  margin-left: 50px;
+}
