@@ -3,6 +3,10 @@ body {
   font-family: 'Source Serif Pro', serif;
 }
 
+.container {
+  background-color: white;
+}
+
 #cart {
   font-size: 24pt;
   text-align: right;
@@ -11,8 +15,20 @@ body {
 }
 
 #app {
-  text-align: center;
   height: 75%;
+}
+
+#catElement {
+  text-align: center;
+}
+
+.colCart {
+  margin-top: 100px;
+}
+
+.secondCol {
+  padding: 50px;
+  text-align: left;
 }
 
 .card {
@@ -44,4 +60,29 @@ h1 {
 #buttonBack {
   margin-left: 20px;
   color: #007bff;
+}
+
+.cart {
+  text-align: right;
+  margin-right: 75px;
+  font-size: 24pt;
+  margin-top: 10px;
+}
+
+.buttonShop {
+  font-size: 18pt;
+  text-align: center;
+}
+
+#price {
+  padding-top: 20px;
+  font-size: 18pt;
+}
+
+.subTitle {
+  font-size: 24pt;
+}
+
+.titleFontSize {
+  font-size: 36pt;
 }

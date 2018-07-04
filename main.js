@@ -95,7 +95,9 @@ var app = {
 
 var renderCatalog = document.querySelector("[data-view='catalog']")
 var renderDetails = document.querySelector("[data-view='details']")
+var renderCart = document.querySelector("[data-view='cart']")
 var $h1 = document.querySelector('h1')
+var cartBadge = document.querySelector('span')
 
 function card(item) {
 
@@ -138,6 +140,7 @@ function card(item) {
 
 function buildCatalog(itemList) {
   var $divItems = document.createElement('div')
+  $divItems.setAttribute('id', 'catElement')
   for (var i = 0; i < itemList.length; i++) {
     var itemCard = card(itemList[i])
     $divItems.appendChild(itemCard)
@@ -156,7 +159,6 @@ function renderApp(app) {
     renderDetails.appendChild(detailsView)
 
     var btn = document.getElementById('button')
-    var cartBadge = document.querySelector('span')
     btn.onclick = function (event) {
       app.cart.items.push(app.details.item)
       cartBadge.textContent = '(' + (app.cart.items.length) + ')'
@@ -169,6 +171,9 @@ function renderApp(app) {
       renderDetails.removeChild($details)
       view(app.view)
     }
+  }
+  else {
+    renderCart.appendChild(buildCart(app.cart))
   }
 }
 
@@ -190,23 +195,17 @@ function details(item) {
 
   container.setAttribute('class', 'container')
   container.setAttribute('id', 'details')
-  container.style.backgroundColor = 'white'
   row.setAttribute('class', 'row')
-  firstCol.setAttribute('class', 'col col-lg-4')
-  firstCol.style.marginTop = '50px'
+  firstCol.setAttribute('class', 'colCart col col-lg-4')
   img.setAttribute('class', 'card-img-top')
   img.setAttribute('src', 'src=.../1--px180/')
-  secondCol.setAttribute('class', 'col')
-  secondCol.style.padding = '50px'
-  secondCol.style.textAlign = 'left'
-  title.setAttribute('class', 'card-title')
-  title.style.fontSize = '36pt'
+  secondCol.setAttribute('class', 'secondCol col')
+  title.setAttribute('class', 'titleFontSize card-title')
   subTitle.setAttribute('class', 'card-subtitle mb-2 text-muted')
-  subTitle.style.fontSize = '24pt'
+  subTitle.setAttribute('class', 'subTitle')
   desc.setAttribute('class', 'card-text')
   price.setAttribute('class', 'card-text')
-  price.style.paddingTop = '20px'
-  price.style.fontSize = '18pt'
+  price.setAttribute('id', 'price')
   link.setAttribute('href', '#')
   link.setAttribute('class', 'btn btn-outline-primary btn-sm')
   link.setAttribute('id', 'button')
@@ -258,10 +257,112 @@ renderCatalog.addEventListener('click', function (event) {
 function view(viewName) {
   if (viewName === renderCatalog.getAttribute('data-view')) {
     renderDetails.setAttribute('class', 'hidden')
+    renderCart.setAttribute('class', 'hidden')
     renderCatalog.removeAttribute('class', 'hidden')
   }
   else if (viewName === renderDetails.getAttribute('data-view')) {
     renderCatalog.setAttribute('class', 'hidden')
+    renderCart.setAttribute('class', 'hidden')
     renderDetails.removeAttribute('class', 'hidden')
   }
+  else {
+    renderDetails.setAttribute('class', 'hidden')
+    renderCatalog.setAttribute('class', 'hidden')
+    renderCart.removeAttribute('class', 'hidden')
+  }
+}
+
+function cartView(item) {
+
+  var container = document.createElement('div')
+  var row = document.createElement('div')
+  var firstCol = document.createElement('div')
+  var img = document.createElement('img')
+  var secondCol = document.createElement('div')
+  var title = document.createElement('h5')
+  var subTitle = document.createElement('h6')
+  var desc = document.createElement('p')
+  var price = document.createElement('p')
+
+  container.setAttribute('class', 'container')
+  container.setAttribute('id', 'details')
+  row.setAttribute('class', 'row')
+  firstCol.setAttribute('class', 'colCart col col-lg-4')
+  img.setAttribute('class', 'card-img-top')
+  img.setAttribute('src', 'src=.../1--px180/')
+  secondCol.setAttribute('class', 'secondCol col')
+  title.setAttribute('class', 'titleFontSize card-title')
+  subTitle.setAttribute('class', 'card-subtitle mb-2 text-muted')
+  subTitle.setAttribute('class', 'subTitle')
+  desc.setAttribute('class', 'card-text')
+  price.setAttribute('class', 'card-text')
+  price.setAttribute('id', 'price')
+
+  img.src = item['imageUrl']
+  title.textContent = item['name']
+  subTitle.textContent = item['brand']
+  desc.textContent = item['details']
+  price.textContent = item['price']
+
+  container.appendChild(row)
+  row.appendChild(firstCol)
+  firstCol.appendChild(img)
+  row.appendChild(secondCol)
+  secondCol.appendChild(title)
+  secondCol.appendChild(subTitle)
+  secondCol.appendChild(desc)
+  secondCol.appendChild(price)
+
+  return container
+
+}
+
+function buildCart(cart) {
+  var $cartItems = document.createElement('div')
+  $cartItems.setAttribute('id', 'cartContainer')
+  var cartTotal = 0
+  for (var i = 0; i < cart.items.length; i++) {
+    var cartItem = cartView(cart.items[i])
+    $cartItems.appendChild(cartItem)
+    cartTotal += cart.items[i].price
+  }
+  $h1.textContent = 'Cart'
+
+  var cartItemsCount = document.createElement('div')
+  cartItemsCount.setAttribute('class', 'cart')
+  cartItemsCount.textContent = app.cart.items.length + ' Items'
+
+  var cartTotalEl = document.createElement('div')
+  cartTotalEl.setAttribute('class', 'cart')
+  cartTotalEl.textContent = 'Total: $' + cartTotal
+
+  var buttonDiv = document.createElement('div')
+  var buttonShop = document.createElement('button')
+  buttonDiv.appendChild(buttonShop)
+  buttonDiv.setAttribute('class', 'buttonShop')
+  buttonShop.textContent = 'Continue Shopping'
+
+  buttonShop.onclick = function (event) {
+    app.view = 'catalog'
+    view(app.view)
+    var $details = document.getElementById('details')
+    renderDetails.removeChild($details)
+    var catOld = document.getElementById('catElement')
+    renderCatalog.removeChild(catOld)
+    var $cartContainer = document.getElementById('cartContainer')
+    renderCart.removeChild($cartContainer)
+    renderApp(app)
+  }
+
+  $cartItems.appendChild(cartItemsCount)
+  $cartItems.appendChild(cartTotalEl)
+  $cartItems.appendChild(buttonDiv)
+
+  return $cartItems
+}
+
+cartBadge.onclick = function (event) {
+  app.view = 'cart'
+  view(app.view)
+  renderApp(app)
 }
