@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 var app = {
   view: 'catalog',
   catalog: {
@@ -477,7 +476,6 @@ function checkout(cart) {
   var cartTotal = 0
 
   for (var i = 0; i < cart.items.length; i++) {
-    var cartItem = cartView(cart.items[i])
     cartTotal += cart.items[i].price
   }
 
