@@ -105,31 +105,33 @@ function card(item) {
   var $card = document.createElement('div')
   var $img = document.createElement('img')
   var $cardBody = document.createElement('div')
-  var $cardTitle = document.createElement('h5')
-  var $cardSubTitle = document.createElement('h6')
-  var $cardText = document.createElement('p')
+  var titleDiv = document.createElement('div')
+  var subTitleDiv = document.createElement('div')
+  var descDiv = document.createElement('div')
+  var priceDiv = document.createElement('div')
 
   $card.setAttribute('class', 'card')
   $card.setAttribute('style', 'width: 18rem;')
   $card.setAttribute('data-item-id', item['itemId'])
   $img.setAttribute('class', 'card-img-top')
-  $img.setAttribute('src', 'src=.../1--px180/')
-  $img.setAttribute('alt', 'Card image cap')
   $cardBody.setAttribute('class', 'card-body')
-  $cardTitle.setAttribute('class', 'card-title')
-  $cardSubTitle.setAttribute('class', 'card-subtitle mb-2 text-muted')
-  $cardText.setAttribute('class', 'card-text')
+  titleDiv.setAttribute('class', 'card-title')
+  titleDiv.setAttribute('id', 'titleDiv')
+  subTitleDiv.setAttribute('class', 'card-subtitle mb-2 text-muted')
+  priceDiv.setAttribute('id', 'priceCat')
 
-  $cardTitle.textContent = item['name']
-  $cardSubTitle.textContent = item['brand']
+  titleDiv.textContent = item['name']
+  subTitleDiv.textContent = item['brand']
+  descDiv.textContent = item['description']
   $img.src = item['imageUrl']
-  $cardText.textContent = item['price']
+  priceDiv.textContent = '$' + parseFloat(item['price']).toFixed(2)
 
+  $cardBody.appendChild(titleDiv)
+  $cardBody.appendChild(subTitleDiv)
+  $cardBody.appendChild(descDiv)
+  $cardBody.appendChild(priceDiv)
   $card.appendChild($img)
-  $card.appendChild($cardTitle)
-  $card.appendChild($cardSubTitle)
   $card.appendChild($cardBody)
-  $card.appendChild($cardText)
 
   return $card
 }
@@ -222,8 +224,8 @@ function details(item) {
   img.src = item['imageUrl']
   title.textContent = item['name']
   subTitle.textContent = item['brand']
-  desc.textContent = item['details']
-  price.textContent = item['price']
+  desc.textContent = item['description']
+  price.textContent = '$' + parseFloat(item['price']).toFixed(2)
   link.textContent = 'Add to cart'
   linkBack.textContent = 'Back'
 
@@ -305,7 +307,6 @@ function cartView(item) {
   row.setAttribute('class', 'row')
   firstCol.setAttribute('class', 'colCart col col-lg-4')
   img.setAttribute('class', 'card-img-top')
-  img.setAttribute('src', 'src=.../1--px180/')
   secondCol.setAttribute('class', 'secondCol col')
   title.setAttribute('class', 'titleFontSizeCart card-title')
   subTitle.setAttribute('class', 'subTitle card-subtitle mb-2 text-muted')
@@ -316,8 +317,7 @@ function cartView(item) {
   img.src = item['imageUrl']
   title.textContent = item['name']
   subTitle.textContent = item['brand']
-  desc.textContent = item['description']
-  price.textContent = item['price']
+  price.textContent = '$' + parseFloat(item['price']).toFixed(2)
 
   container.appendChild(row)
   row.appendChild(firstCol)
@@ -350,16 +350,17 @@ function buildCart(cart) {
 
   var cartTotalEl = document.createElement('div')
   cartTotalEl.setAttribute('class', 'cart')
-  cartTotalEl.textContent = 'Total: $' + cartTotal
+  cartTotalEl.textContent = 'Total: $' + parseFloat(cartTotal).toFixed(2)
 
   var buttonDiv = document.createElement('div')
   var buttonShop = document.createElement('button')
+  buttonShop.setAttribute('class', 'btn btn-outline-primary btn-sm')
   var buttonCheckout = document.createElement('button')
+  buttonCheckout.setAttribute('class', 'buttonCheckout btn btn-outline-primary btn-sm')
 
   buttonDiv.appendChild(buttonShop)
   buttonDiv.appendChild(buttonCheckout)
   buttonDiv.setAttribute('class', 'buttonShop')
-  buttonCheckout.setAttribute('class', 'buttonCheckout')
   buttonShop.textContent = 'Continue Shopping'
   buttonCheckout.textContent = 'Checkout'
 
