@@ -5,6 +5,8 @@ body {
 
 .container {
   background-color: white;
+  width: 60%;
+  height: 75%;
 }
 
 #cart {
@@ -24,11 +26,11 @@ body {
 }
 
 .colCart {
-  margin-top: 15px;
+  /* margin-top: 15px; */
 }
 
 .colDetails {
-  margin-top: 50px;
+  margin: 0 auto;
 }
 
 .secondCol {
@@ -69,9 +71,9 @@ h1 {
 
 .cart {
   text-align: right;
-  margin-right: 75px;
   font-size: 24pt;
-  margin-top: 10px;
+  margin: 0 auto;
+  width: 60%;
 }
 
 .buttonShop {
@@ -112,8 +114,7 @@ h1 {
 #checkout {
   width: 40%;
   margin: 0 auto;
-  border-style: solid;
-  border-color: white;
+  background-color: white;
   padding: 80px;
 }
 
@@ -128,6 +129,7 @@ h1 {
 
 #details {
   width: 60%;
+  height: 325px;
 }
 
 #titleDiv {
@@ -136,4 +138,9 @@ h1 {
 
 #priceCat {
   font-size: 14pt;
+}
+
+#cartContainer {
+  width: 60%;
+  margin: 0 auto;
 }
