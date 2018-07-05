@@ -21,7 +21,7 @@ body {
   height: 75%;
 }
 
-#catElement {
+#catalog-element {
   text-align: center;
 }
 
@@ -60,7 +60,7 @@ h1 {
   display: none;
 }
 
-#buttonBack {
+#btn-back {
   margin-left: 20px;
   color: #007bff;
 }
@@ -83,7 +83,7 @@ h1 {
   font-size: 18pt;
 }
 
-.subTitle {
+.sub-title {
   font-size: 18pt;
 }
 
@@ -91,15 +91,11 @@ h1 {
   font-size: 36pt;
 }
 
-.titleFontSizeCart {
+.cart-font-size {
   font-size: 24pt;
 }
 
-.cardCart {
-  font-size: 18pt;
-}
-
-.buttonCheckout {
+.btn-checkout {
   margin-left: 50px;
 }
 
@@ -114,12 +110,12 @@ h1 {
   padding: 80px;
 }
 
-.buttonPay {
+.btn-pay {
   text-align: center;
   margin-top: 25px;
 }
 
-.cartPay {
+.cart-pay {
   text-align: right;
 }
 
@@ -132,11 +128,11 @@ h1 {
   font-size: 16pt;
 }
 
-#priceCat {
+#catalog-price {
   font-size: 14pt;
 }
 
-#cartContainer {
+#cart-container {
   width: 60%;
   margin: 0 auto;
 }

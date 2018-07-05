@@ -115,9 +115,8 @@ function card(item) {
   $img.setAttribute('class', 'card-img-top')
   $cardBody.setAttribute('class', 'card-body')
   $title.setAttribute('class', 'card-title')
-  $title.setAttribute('id', '$title')
   $subTitle.setAttribute('class', 'card-subtitle mb-2 text-muted')
-  $price.setAttribute('id', 'priceCat')
+  $price.setAttribute('id', 'catalog-price')
 
   $title.textContent = item.name
   $subTitle.textContent = item.brand
@@ -137,7 +136,7 @@ function card(item) {
 
 function buildCatalog(itemList) {
   var $fullcatalog = document.createElement('div')
-  $fullcatalog.setAttribute('id', 'catElement')
+  $fullcatalog.setAttribute('id', 'catalog-element')
   for (var i = 0; i < itemList.length; i++) {
     var item = card(itemList[i])
     $fullcatalog.appendChild(item)
@@ -162,7 +161,7 @@ function renderApp(app) {
       $cartBadge.textContent = '(' + (app.cart.items.length) + ')'
     }
 
-    var btnBack = document.getElementById('buttonBack')
+    var btnBack = document.getElementById('btn-back')
     btnBack.onclick = function (event) {
       app.view = 'catalog'
       var $details = document.getElementById('details')
@@ -171,7 +170,7 @@ function renderApp(app) {
     }
   }
   else if (app.view === 'cart') {
-    var $cartContainer = document.getElementById('cartContainer')
+    var $cartContainer = document.getElementById('cart-container')
     if ($cartView.contains($cartContainer)) {
       $cartView.removeChild($cartContainer)
       $cartView.appendChild(buildCart(app.cart))
@@ -218,7 +217,7 @@ function details(item) {
   $addToCart.setAttribute('class', 'btn btn-outline-primary btn-sm')
   $addToCart.setAttribute('id', 'button')
   $checkout.setAttribute('class', 'btn btn-outline-primary btn-sm')
-  $checkout.setAttribute('id', 'buttonBack')
+  $checkout.setAttribute('id', 'btn-back')
 
   $img.src = item.imageUrl
   $itemTitle.textContent = item.name
@@ -307,8 +306,8 @@ function cartView(item) {
   $firstCol.setAttribute('class', 'colCart col col-lg-4')
   $image.setAttribute('class', 'card-img-top')
   $secondCol.setAttribute('class', 'secondCol col')
-  $itemTitle.setAttribute('class', 'titleFontSizeCart card-title')
-  $subTitle.setAttribute('class', 'subTitle card-subtitle mb-2 text-muted')
+  $itemTitle.setAttribute('class', 'cart-font-size card-title')
+  $subTitle.setAttribute('class', 'sub-title card-subtitle mb-2 text-muted')
   $description.setAttribute('class', 'card-text')
   $price.setAttribute('class', 'card-text')
   $price.setAttribute('id', 'price')
@@ -333,7 +332,7 @@ function cartView(item) {
 
 function buildCart(cart) {
   var $cartItems = document.createElement('div')
-  $cartItems.setAttribute('id', 'cartContainer')
+  $cartItems.setAttribute('id', 'cart-container')
   var cartTotal = 0
   for (var i = 0; i < cart.items.length; i++) {
     var cartItem = cartView(cart.items[i])
@@ -355,7 +354,7 @@ function buildCart(cart) {
   var $continueShoppingButton = document.createElement('button')
   $continueShoppingButton.setAttribute('class', 'btn btn-outline-primary btn-sm')
   var $checkoutButton = document.createElement('button')
-  $checkoutButton.setAttribute('class', 'buttonCheckout btn btn-outline-primary btn-sm')
+  $checkoutButton.setAttribute('class', 'btn-checkout btn btn-outline-primary btn-sm')
 
   $buttonSection.appendChild($continueShoppingButton)
   $buttonSection.appendChild($checkoutButton)
@@ -364,8 +363,8 @@ function buildCart(cart) {
   $checkoutButton.textContent = 'Checkout'
 
   var $itemDetails = document.getElementById('details')
-  var $catalog = document.getElementById('catElement')
-  var $cartContainer = document.getElementById('cartContainer')
+  var $catalog = document.getElementById('catalog-element')
+  var $cartContainer = document.getElementById('cart-container')
 
   $continueShoppingButton.onclick = function (event) {
     app.view = 'catalog'
@@ -424,7 +423,7 @@ function checkout(cart) {
   $custNameLabel.setAttribute('for', 'name')
   $custNameInput.setAttribute('type', 'text')
   $custNameInput.setAttribute('class', 'form-control')
-  $custNameInput.setAttribute('id', 'inputName')
+  $custNameInput.setAttribute('id', 'input-name')
   $custNameInput.setAttribute('placeholder', 'Enter name')
   $custNameLabel.textContent = 'Name'
 
@@ -432,7 +431,7 @@ function checkout(cart) {
   $addressLabel.setAttribute('for', 'address')
   $addressInput.setAttribute('type', 'text')
   $addressInput.setAttribute('class', 'form-control')
-  $addressInput.setAttribute('id', 'inputAddress')
+  $addressInput.setAttribute('id', 'input-address')
   $addressInput.setAttribute('placeholder', 'Enter address')
   $addressLabel.textContent = 'Address'
 
@@ -440,16 +439,16 @@ function checkout(cart) {
   $creditCardLabel.setAttribute('for', 'credit card')
   $creditCardInput.setAttribute('type', 'text')
   $creditCardInput.setAttribute('class', 'form-control')
-  $creditCardInput.setAttribute('id', 'inputCC')
+  $creditCardInput.setAttribute('id', 'input-cc')
   $creditCardInput.setAttribute('placeholder', 'Enter credit card number')
   $creditCardLabel.textContent = 'Credit Card Number'
 
   $payButton.setAttribute('type', 'submit')
   $payButton.setAttribute('class', 'btn btn-primary')
-  $payButton.setAttribute('id', '$buttonPay')
+  $payButton.setAttribute('id', 'btn-pay')
   $payButton.textContent = 'Pay'
   $payButtonSection.appendChild($payButton)
-  $payButtonSection.setAttribute('class', 'buttonPay')
+  $payButtonSection.setAttribute('class', 'btn-pay')
 
   $payButton.onclick = function (event) {
     alert('Your order has been received!')
@@ -473,11 +472,11 @@ function checkout(cart) {
   }
 
   var $itemCount = document.createElement('div')
-  $itemCount.setAttribute('class', 'cartPay')
+  $itemCount.setAttribute('class', 'cart-pay')
   $itemCount.textContent = app.cart.items.length + ' Item(s)'
 
   var $cartTotal = document.createElement('div')
-  $cartTotal.setAttribute('class', 'cartPay')
+  $cartTotal.setAttribute('class', 'cart-pay')
   $cartTotal.textContent = 'Total: $' + cartTotal
 
   $pageHeading.textContent = 'Checkout'
