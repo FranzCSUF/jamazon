@@ -317,7 +317,6 @@ function cartView(item) {
   img.src = item['imageUrl']
   title.textContent = item['name']
   subTitle.textContent = item['brand']
-  // desc.textContent = item['description']
   price.textContent = '$' + parseFloat(item['price']).toFixed(2)
 
   container.appendChild(row)
