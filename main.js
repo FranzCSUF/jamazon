@@ -156,13 +156,13 @@ function renderApp(app) {
     $detailsView.appendChild(detailsView)
 
     var btn = document.getElementById('button')
-    btn.onclick = function (event) {
+    btn.onclick = function () {
       app.cart.items.push(app.details.item)
       $cartBadge.textContent = '(' + (app.cart.items.length) + ')'
     }
 
     var btnBack = document.getElementById('btn-back')
-    btnBack.onclick = function (event) {
+    btnBack.onclick = function () {
       app.view = 'catalog'
       var $details = document.getElementById('details')
       $detailsView.removeChild($details)
@@ -252,7 +252,7 @@ function match(id, catalog) {
   return match
 }
 
-$catalogView.addEventListener('click', function (event) {
+$catalogView.addEventListener('click', function () {
   var elt = event.target.closest('.card')
   app.view = 'details'
   view(app.view)
@@ -366,7 +366,7 @@ function buildCart(cart) {
   var $catalog = document.getElementById('catalog-element')
   var $cartContainer = document.getElementById('cart-container')
 
-  $continueShoppingButton.onclick = function (event) {
+  $continueShoppingButton.onclick = function () {
     app.view = 'catalog'
     view(app.view)
     if ($detailsView.contains($itemDetails)) $detailsView.removeChild($itemDetails)
@@ -375,7 +375,7 @@ function buildCart(cart) {
     renderApp(app)
   }
 
-  $checkoutButton.onclick = function (event) {
+  $checkoutButton.onclick = function () {
     app.view = 'checkout'
     checkout(app.cart)
     view(app.view)
@@ -392,7 +392,7 @@ function buildCart(cart) {
   return $cartItems
 }
 
-$cartBadge.onclick = function (event) {
+$cartBadge.onclick = function () {
   app.view = 'cart'
   view(app.view)
   renderApp(app)
@@ -450,7 +450,7 @@ function checkout(cart) {
   $payButtonSection.appendChild($payButton)
   $payButtonSection.setAttribute('class', 'btn-pay')
 
-  $payButton.onclick = function (event) {
+  $payButton.onclick = function () {
     alert('Your order has been received!')
   }
 
