@@ -307,7 +307,6 @@ function cartView(item) {
   row.setAttribute('class', 'row')
   firstCol.setAttribute('class', 'colCart col col-lg-4')
   img.setAttribute('class', 'card-img-top')
-  img.setAttribute('src', 'src=.../1--px180/')
   secondCol.setAttribute('class', 'secondCol col')
   title.setAttribute('class', 'titleFontSizeCart card-title')
   subTitle.setAttribute('class', 'subTitle card-subtitle mb-2 text-muted')
