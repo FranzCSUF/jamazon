@@ -99,7 +99,7 @@ var $checkoutView = document.querySelector("[data-view='checkout']")
 var $pageHeading = document.querySelector('h1')
 var $cartBadge = document.querySelector('span')
 
-function card(item) {
+function createItem(item) {
 
   var $item = document.createElement('div')
   var $img = document.createElement('img')
@@ -138,22 +138,20 @@ function buildCatalog(itemList) {
   var $fullcatalog = document.createElement('div')
   $fullcatalog.setAttribute('id', 'catalog-element')
   for (var i = 0; i < itemList.length; i++) {
-    var item = card(itemList[i])
-    $fullcatalog.appendChild(item)
+    var itemCard = createItem(itemList[i])
+    $fullcatalog.appendChild(itemCard)
   }
   return $fullcatalog
 }
 
-function renderApp(app) {
-  view(app.view)
+function showView(app) {
+  selectView(app.view)
   if (app.view === 'catalog') {
-    var finalBuild = buildCatalog(app.catalog.items)
-    $catalogView.appendChild(finalBuild)
+    $catalogView.appendChild(buildCatalog(app.catalog.items))
     $pageHeading.textContent = 'Jamazon'
   }
   else if (app.view === 'details') {
-    var detailsView = details(app.details.item)
-    $detailsView.appendChild(detailsView)
+    $detailsView.appendChild(createDetails(app.details.item))
 
     var btn = document.getElementById('button')
     btn.onclick = function () {
@@ -164,15 +162,13 @@ function renderApp(app) {
     var btnBack = document.getElementById('btn-back')
     btnBack.onclick = function () {
       app.view = 'catalog'
-      var $details = document.getElementById('details')
-      $detailsView.removeChild($details)
-      view(app.view)
+      $detailsView.removeChild(document.getElementById('details'))
+      selectView(app.view)
     }
   }
   else if (app.view === 'cart') {
-    var $cartContainer = document.getElementById('cart-container')
-    if ($cartView.contains($cartContainer)) {
-      $cartView.removeChild($cartContainer)
+    if ($cartView.contains(document.getElementById('cart-container'))) {
+      $cartView.removeChild(document.getElementById('cart-container'))
       $cartView.appendChild(buildCart(app.cart))
     }
     else {
@@ -180,13 +176,13 @@ function renderApp(app) {
     }
   }
   else {
-    $checkoutView.appendChild(checkout(app.cart))
+    $checkoutView.appendChild(createCheckoutView(app.cart))
   }
 }
 
-renderApp(app)
+showView(app)
 
-function details(item) {
+function createDetails(item) {
 
   var $itemDetails = document.createElement('div')
   var $row = document.createElement('div')
@@ -255,40 +251,32 @@ function match(id, catalog) {
 $catalogView.addEventListener('click', function () {
   var elt = event.target.closest('.card')
   app.view = 'details'
-  view(app.view)
+  selectView(app.view)
   var itemId = parseInt(elt.getAttribute('data-item-id'))
   app.details.item = match(itemId, app.catalog)
-  renderApp(app)
+  showView(app)
 })
 
-function view(viewName) {
-  if (viewName === $catalogView.getAttribute('data-view')) {
-    $detailsView.setAttribute('class', 'hidden')
-    $cartView.setAttribute('class', 'hidden')
-    $checkoutView.setAttribute('class', 'hidden')
+function selectView(viewName) {
+  $catalogView.setAttribute('class', 'hidden')
+  $detailsView.setAttribute('class', 'hidden')
+  $cartView.setAttribute('class', 'hidden')
+  $checkoutView.setAttribute('class', 'hidden')
+  if (viewName === 'catalog') {
     $catalogView.removeAttribute('class', 'hidden')
   }
-  else if (viewName === $detailsView.getAttribute('data-view')) {
-    $catalogView.setAttribute('class', 'hidden')
-    $cartView.setAttribute('class', 'hidden')
-    $checkoutView.setAttribute('class', 'hidden')
+  else if (viewName === 'details') {
     $detailsView.removeAttribute('class', 'hidden')
   }
-  else if (viewName === $cartView.getAttribute('data-view')) {
-    $detailsView.setAttribute('class', 'hidden')
-    $catalogView.setAttribute('class', 'hidden')
-    $checkoutView.setAttribute('class', 'hidden')
+  else if (viewName === 'cart') {
     $cartView.removeAttribute('class', 'hidden')
   }
   else {
-    $detailsView.setAttribute('class', 'hidden')
-    $catalogView.setAttribute('class', 'hidden')
-    $cartView.setAttribute('class', 'hidden')
     $checkoutView.removeAttribute('class', 'hidden')
   }
 }
 
-function cartView(item) {
+function createCartItem(item) {
 
   var $cartView = document.createElement('div')
   var $row = document.createElement('div')
@@ -335,7 +323,7 @@ function buildCart(cart) {
   $cartItems.setAttribute('id', 'cart-container')
   var cartTotal = 0
   for (var i = 0; i < cart.items.length; i++) {
-    var cartItem = cartView(cart.items[i])
+    var cartItem = createCartItem(cart.items[i])
     $cartItems.appendChild(cartItem)
     cartTotal += cart.items[i].price
   }
@@ -350,55 +338,55 @@ function buildCart(cart) {
   $cartTotal.setAttribute('class', 'cart')
   $cartTotal.textContent = 'Total: $' + parseFloat(cartTotal).toFixed(2)
 
-  var $buttonSection = document.createElement('div')
-  var $continueShoppingButton = document.createElement('button')
-  $continueShoppingButton.setAttribute('class', 'btn btn-outline-primary btn-sm')
-  var $checkoutButton = document.createElement('button')
-  $checkoutButton.setAttribute('class', 'btn-checkout btn btn-outline-primary btn-sm')
+  var $btnSection = document.createElement('div')
+  var $continueShopBtn = document.createElement('button')
+  $continueShopBtn.setAttribute('class', 'btn btn-outline-primary btn-sm')
+  var $checkoutBtn = document.createElement('button')
+  $checkoutBtn.setAttribute('class', 'btn-checkout btn btn-outline-primary btn-sm')
 
-  $buttonSection.appendChild($continueShoppingButton)
-  $buttonSection.appendChild($checkoutButton)
-  $buttonSection.setAttribute('class', 'buttonShop')
-  $continueShoppingButton.textContent = 'Continue Shopping'
-  $checkoutButton.textContent = 'Checkout'
+  $btnSection.appendChild($continueShopBtn)
+  $btnSection.appendChild($checkoutBtn)
+  $btnSection.setAttribute('class', 'buttonShop')
+  $continueShopBtn.textContent = 'Continue Shopping'
+  $checkoutBtn.textContent = 'Checkout'
 
   var $itemDetails = document.getElementById('details')
   var $catalog = document.getElementById('catalog-element')
-  var $cartContainer = document.getElementById('cart-container')
+  var $shoppingCart = document.getElementById('cart-container')
 
-  $continueShoppingButton.onclick = function () {
+  $continueShopBtn.onclick = function () {
     app.view = 'catalog'
-    view(app.view)
+    selectView(app.view)
     if ($detailsView.contains($itemDetails)) $detailsView.removeChild($itemDetails)
     if ($catalogView.contains($catalog)) $catalogView.removeChild($catalog)
-    if ($cartView.contains($cartContainer)) $cartView.removeChild($cartContainer)
-    renderApp(app)
+    if ($cartView.contains($shoppingCart)) $cartView.removeChild($shoppingCart)
+    showView(app)
   }
 
-  $checkoutButton.onclick = function () {
+  $checkoutBtn.onclick = function () {
     app.view = 'checkout'
-    checkout(app.cart)
-    view(app.view)
+    createCheckoutView(app.cart)
+    selectView(app.view)
     if ($detailsView.contains($itemDetails)) $detailsView.removeChild($itemDetails)
     if ($catalogView.contains($catalog)) $catalogView.removeChild($catalog)
-    if ($cartView.contains($cartContainer)) $cartView.removeChild($cartContainer)
-    renderApp(app)
+    if ($cartView.contains($shoppingCart)) $cartView.removeChild($shoppingCart)
+    showView(app)
   }
 
   $cartItems.appendChild($itemCount)
   $cartItems.appendChild($cartTotal)
-  $cartItems.appendChild($buttonSection)
+  $cartItems.appendChild($btnSection)
 
   return $cartItems
 }
 
 $cartBadge.onclick = function () {
   app.view = 'cart'
-  view(app.view)
-  renderApp(app)
+  selectView(app.view)
+  showView(app)
 }
 
-function checkout(cart) {
+function createCheckoutView(cart) {
 
   var $checkoutView = document.createElement('div')
   var $form = document.createElement('form')
@@ -416,8 +404,8 @@ function checkout(cart) {
   var $creditCardInput = document.createElement('input')
   var $creditCardName = document.createElement('small')
 
-  var $payButtonSection = document.createElement('div')
-  var $payButton = document.createElement('button')
+  var $payBtnSection = document.createElement('div')
+  var $payBtn = document.createElement('button')
 
   $custNameSection.setAttribute('class', 'form-group col-md-6')
   $custNameLabel.setAttribute('for', 'name')
@@ -443,14 +431,14 @@ function checkout(cart) {
   $creditCardInput.setAttribute('placeholder', 'Enter credit card number')
   $creditCardLabel.textContent = 'Credit Card Number'
 
-  $payButton.setAttribute('type', 'submit')
-  $payButton.setAttribute('class', 'btn btn-primary')
-  $payButton.setAttribute('id', 'btn-pay')
-  $payButton.textContent = 'Pay'
-  $payButtonSection.appendChild($payButton)
-  $payButtonSection.setAttribute('class', 'btn-pay')
+  $payBtn.setAttribute('type', 'submit')
+  $payBtn.setAttribute('class', 'btn btn-primary')
+  $payBtn.setAttribute('id', 'btn-pay')
+  $payBtn.textContent = 'Pay'
+  $payBtnSection.appendChild($payBtn)
+  $payBtnSection.setAttribute('class', 'btn-pay')
 
-  $payButton.onclick = function () {
+  $payBtn.onclick = function () {
     alert('Your order has been received!')
   }
 
@@ -464,7 +452,7 @@ function checkout(cart) {
   $form.appendChild($creditCardLabel)
   $form.appendChild($creditCardInput)
   $form.appendChild($creditCardName)
-  $form.appendChild($payButtonSection)
+  $form.appendChild($payBtnSection)
 
   var cartTotal = 0
   for (var i = 0; i < cart.items.length; i++) {
