@@ -111,7 +111,7 @@ function card(item) {
 
   $item.setAttribute('class', 'card')
   $item.setAttribute('style', 'width: 18rem;')
-  $item.setAttribute('data-item-id', item['itemId'])
+  $item.setAttribute('data-item-id', item.itemId)
   $img.setAttribute('class', 'card-img-top')
   $cardBody.setAttribute('class', 'card-body')
   $title.setAttribute('class', 'card-title')
@@ -119,11 +119,11 @@ function card(item) {
   $subTitle.setAttribute('class', 'card-subtitle mb-2 text-muted')
   $price.setAttribute('id', 'priceCat')
 
-  $title.textContent = item['name']
-  $subTitle.textContent = item['brand']
-  $description.textContent = item['description']
-  $img.src = item['imageUrl']
-  $price.textContent = '$' + parseFloat(item['price']).toFixed(2)
+  $title.textContent = item.name
+  $subTitle.textContent = item.brand
+  $description.textContent = item.description
+  $img.src = item.imageUrl
+  $price.textContent = '$' + parseFloat(item.price).toFixed(2)
 
   $cardBody.appendChild($title)
   $cardBody.appendChild($subTitle)
@@ -148,7 +148,7 @@ function buildCatalog(itemList) {
 function renderApp(app) {
   view(app.view)
   if (app.view === 'catalog') {
-    var finalBuild = buildCatalog(app.catalog['items'])
+    var finalBuild = buildCatalog(app.catalog.items)
     $catalogView.appendChild(finalBuild)
     $pageHeading.textContent = 'Jamazon'
   }
@@ -220,11 +220,11 @@ function details(item) {
   $checkout.setAttribute('class', 'btn btn-outline-primary btn-sm')
   $checkout.setAttribute('id', 'buttonBack')
 
-  $img.src = item['imageUrl']
-  $itemTitle.textContent = item['name']
-  $itemSubTitle.textContent = item['brand']
-  $description.textContent = item['description']
-  $price.textContent = '$' + parseFloat(item['price']).toFixed(2)
+  $img.src = item.imageUrl
+  $itemTitle.textContent = item.name
+  $itemSubTitle.textContent = item.brand
+  $description.textContent = item.description
+  $price.textContent = '$' + parseFloat(item.price).toFixed(2)
   $addToCart.textContent = 'Add to cart'
   $checkout.textContent = 'Back'
 
@@ -313,10 +313,10 @@ function cartView(item) {
   $price.setAttribute('class', 'card-text')
   $price.setAttribute('id', 'price')
 
-  $image.src = item['imageUrl']
-  $itemTitle.textContent = item['name']
-  $subTitle.textContent = item['brand']
-  $price.textContent = '$' + parseFloat(item['price']).toFixed(2)
+  $image.src = item.imageUrl
+  $itemTitle.textContent = item.name
+  $subTitle.textContent = item.brand
+  $price.textContent = '$' + parseFloat(item.price).toFixed(2)
 
   $cartView.appendChild($row)
   $row.appendChild($firstCol)
