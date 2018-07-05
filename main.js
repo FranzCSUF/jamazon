@@ -114,8 +114,6 @@ function card(item) {
   $card.setAttribute('style', 'width: 18rem;')
   $card.setAttribute('data-item-id', item['itemId'])
   $img.setAttribute('class', 'card-img-top')
-  $img.setAttribute('src', 'src=.../1--px180/')
-  $img.setAttribute('alt', 'Card image cap')
   $cardBody.setAttribute('class', 'card-body')
   titleDiv.setAttribute('class', 'card-title')
   titleDiv.setAttribute('id', 'titleDiv')
@@ -226,7 +224,7 @@ function details(item) {
   img.src = item['imageUrl']
   title.textContent = item['name']
   subTitle.textContent = item['brand']
-  desc.textContent = item['details']
+  desc.textContent = item['description']
   price.textContent = '$' + parseFloat(item['price']).toFixed(2)
   link.textContent = 'Add to cart'
   linkBack.textContent = 'Back'
@@ -320,7 +318,7 @@ function cartView(item) {
   img.src = item['imageUrl']
   title.textContent = item['name']
   subTitle.textContent = item['brand']
-  desc.textContent = item['description']
+  // desc.textContent = item['description']
   price.textContent = '$' + parseFloat(item['price']).toFixed(2)
 
   container.appendChild(row)
@@ -358,12 +356,13 @@ function buildCart(cart) {
 
   var buttonDiv = document.createElement('div')
   var buttonShop = document.createElement('button')
+  buttonShop.setAttribute('class', 'btn btn-outline-primary btn-sm')
   var buttonCheckout = document.createElement('button')
+  buttonCheckout.setAttribute('class', 'buttonCheckout btn btn-outline-primary btn-sm')
 
   buttonDiv.appendChild(buttonShop)
   buttonDiv.appendChild(buttonCheckout)
   buttonDiv.setAttribute('class', 'buttonShop')
-  buttonCheckout.setAttribute('class', 'buttonCheckout')
   buttonShop.textContent = 'Continue Shopping'
   buttonCheckout.textContent = 'Checkout'
 
