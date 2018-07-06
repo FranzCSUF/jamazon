@@ -96,8 +96,8 @@ var $catalogView = document.querySelector("[data-view='catalog']")
 var $detailsView = document.querySelector("[data-view='details']")
 var $cartView = document.querySelector("[data-view='cart']")
 var $checkoutView = document.querySelector("[data-view='checkout']")
-var $pageHeading = document.querySelector('h1')
-var $cartBadge = document.querySelector('span')
+var $pageTitle = document.getElementById('title')
+var $cartBadge = document.getElementById('cart-badge')
 
 function createItem(item) {
 
@@ -148,12 +148,12 @@ function showView(app) {
   selectView(app.view)
   if (app.view === 'catalog') {
     $catalogView.appendChild(buildCatalog(app.catalog.items))
-    $pageHeading.textContent = 'Jamazon'
+    $pageTitle.textContent = 'Jamazon'
   }
   else if (app.view === 'details') {
     $detailsView.appendChild(createDetails(app.details.item))
 
-    var btn = document.getElementById('button')
+    var btn = document.getElementById('btn-add-cart')
     btn.onclick = function () {
       app.cart.items.push(app.details.item)
       $cartBadge.textContent = '(' + (app.cart.items.length) + ')'
@@ -211,7 +211,7 @@ function createDetails(item) {
   $price.setAttribute('id', 'price')
   $addToCart.setAttribute('href', '#')
   $addToCart.setAttribute('class', 'btn btn-outline-primary btn-sm')
-  $addToCart.setAttribute('id', 'button')
+  $addToCart.setAttribute('id', 'btn-add-cart')
   $checkout.setAttribute('class', 'btn btn-outline-primary btn-sm')
   $checkout.setAttribute('id', 'btn-back')
 
@@ -328,7 +328,7 @@ function buildCart(cart) {
     cartTotal += cart.items[i].price
   }
 
-  $pageHeading.textContent = 'Cart'
+  $pageTitle.textContent = 'Cart'
 
   var $itemCount = document.createElement('div')
   $itemCount.setAttribute('class', 'cart')
@@ -467,7 +467,7 @@ function createCheckoutView(cart) {
   $cartTotal.setAttribute('class', 'cart-pay')
   $cartTotal.textContent = 'Total: $' + cartTotal
 
-  $pageHeading.textContent = 'Checkout'
+  $pageTitle.textContent = 'Checkout'
   $checkoutView.appendChild($form)
   $checkoutView.appendChild($itemCount)
   $checkoutView.appendChild($cartTotal)
