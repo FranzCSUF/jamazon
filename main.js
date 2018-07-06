@@ -446,10 +446,20 @@ function createCheckoutView(cart) {
   $form.appendChild($creditCardName)
   $form.appendChild($payBtnSection)
 
-  var cartTotal = 0
-  for (var i = 0; i < cart.items.length; i++) {
-    cartTotal += cart.items[i].price
-  }
+  var cartTotal = app.cart.items.price.reduce((accu, nextValue) => {
+    return accu + nextValue
+  })
+  // app.cart.items.forEach(item => {
+  //   cartTotal += item.price
+  // })
+
+  // for (var i = 0; i < cart.items.length; i++) {
+  //   cartTotal += cart.items[i].price
+  // }
+
+  app.cart.items.price.reduce((accu, nextValue) => {
+    return accu + nextValue
+  })
 
   var $itemCount = document.createElement('div')
   $itemCount.setAttribute('class', 'cart-pay')
