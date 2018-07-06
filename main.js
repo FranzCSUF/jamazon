@@ -237,15 +237,8 @@ function createDetails(item) {
   return $itemDetails
 
 }
-
 function match(id, catalog) {
-  var match = null
-  catalog.items.forEach(item => {
-    if (id === item.itemId) {
-      match = item
-    }
-  })
-  return match
+  return catalog.items.find(item => id === item.itemId)
 }
 
 $catalogView.addEventListener('click', function () {
