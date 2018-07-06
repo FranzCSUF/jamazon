@@ -342,18 +342,14 @@ function buildCart(cart) {
     if (event.target === $continueShopBtn) {
       app.view = 'catalog'
       selectView(app.view)
-      $detailsView.innerHTML = ''
       $catalogView.innerHTML = ''
-      $cartView.innerHTML = ''
       showView(app)
     }
     else if (event.target === $checkoutBtn) {
       app.view = 'checkout'
       createCheckoutView(app.cart)
       selectView(app.view)
-      $detailsView.innerHTML = ''
-      $catalogView.innerHTML = ''
-      $cartView.innerHTML = ''
+      $checkoutView.innerHTML = ''
       showView(app)
     }
   })
