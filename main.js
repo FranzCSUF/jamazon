@@ -137,10 +137,10 @@ function createItem(item) {
 function buildCatalog(itemList) {
   var $fullcatalog = document.createElement('div')
   $fullcatalog.setAttribute('id', 'catalog-element')
-  for (var i = 0; i < itemList.length; i++) {
-    var singleItem = createItem(itemList[i])
+  itemList.forEach(item => {
+    var singleItem = createItem(item)
     $fullcatalog.appendChild(singleItem)
-  }
+  })
   return $fullcatalog
 }
 
@@ -240,11 +240,11 @@ function createDetails(item) {
 
 function match(id, catalog) {
   var match = null
-  for (var i = 0; i < catalog.items.length; i++) {
-    if (id === catalog.items[i].itemId) {
-      match = catalog.items[i]
+  catalog.items.forEach(item => {
+    if (id === item.itemId) {
+      match = item
     }
-  }
+  })
   return match
 }
 
@@ -317,11 +317,11 @@ function buildCart(cart) {
   var $cartItems = document.createElement('div')
   $cartItems.setAttribute('id', 'cart-container')
   var cartTotal = 0
-  for (var i = 0; i < cart.items.length; i++) {
-    var cartItem = createCartItem(cart.items[i])
+  app.cart.items.forEach(item => {
+    var cartItem = createCartItem(item)
     $cartItems.appendChild(cartItem)
-    cartTotal += cart.items[i].price
-  }
+    cartTotal += item.price
+  })
 
   $pageTitle.textContent = 'Cart'
 
@@ -446,19 +446,9 @@ function createCheckoutView(cart) {
   $form.appendChild($creditCardName)
   $form.appendChild($payBtnSection)
 
-  var cartTotal = app.cart.items.price.reduce((accu, nextValue) => {
-    return accu + nextValue
-  })
-  // app.cart.items.forEach(item => {
-  //   cartTotal += item.price
-  // })
-
-  // for (var i = 0; i < cart.items.length; i++) {
-  //   cartTotal += cart.items[i].price
-  // }
-
-  app.cart.items.price.reduce((accu, nextValue) => {
-    return accu + nextValue
+  var cartTotal = 0
+  app.cart.items.forEach(item => {
+    cartTotal += item.price
   })
 
   var $itemCount = document.createElement('div')
