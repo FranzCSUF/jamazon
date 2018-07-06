@@ -442,7 +442,7 @@ function createCheckoutView(cart) {
     prices.push(item.price)
   })
 
-  var cartTotal = prices.reduce((accumulator, currentValue) => accumulator + currentValue)
+  var cartTotal = app.cart.items.map(item => item.price).reduce((accumulator, currentValue) => accumulator + currentValue)
 
   var $itemCount = document.createElement('div')
   $itemCount.setAttribute('class', 'cart-pay')
