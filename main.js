@@ -267,6 +267,10 @@ function selectView(viewName) {
   })
 }
 
+function formatPrice(numberString) {
+  return '$' + parseFloat(numberString).toFixed(2)
+}
+
 function createCartItem(item) {
 
   var $cartView = document.createElement('div')
@@ -294,7 +298,7 @@ function createCartItem(item) {
   $image.src = item.imageUrl
   $itemTitle.textContent = item.name
   $subTitle.textContent = item.brand
-  $price.textContent = '$' + parseFloat(item.price).toFixed(2)
+  $price.textContent = formatPrice(item.price)
 
   $cartView.appendChild($row)
   $row.appendChild($firstCol)
@@ -327,7 +331,7 @@ function buildCart(cart) {
 
   var $cartTotal = document.createElement('div')
   $cartTotal.setAttribute('class', 'cart')
-  $cartTotal.textContent = 'Total: $' + parseFloat(cartTotal).toFixed(2)
+  $cartTotal.textContent = formatPrice(cartTotal)
 
   var $btnSection = document.createElement('div')
   var $continueShopBtn = document.createElement('button')
