@@ -96,8 +96,8 @@ var $catalogView = document.querySelector("[data-view='catalog']")
 var $detailsView = document.querySelector("[data-view='details']")
 var $cartView = document.querySelector("[data-view='cart']")
 var $checkoutView = document.querySelector("[data-view='checkout']")
-var $pageHeading = document.querySelector('h1')
-var $cartBadge = document.querySelector('span')
+var $pageTitle = document.getElementById('title')
+var $cartBadge = document.getElementById('cart-badge')
 
 function createItem(item) {
 
@@ -137,10 +137,10 @@ function createItem(item) {
 function buildCatalog(itemList) {
   var $fullcatalog = document.createElement('div')
   $fullcatalog.setAttribute('id', 'catalog-element')
-  for (var i = 0; i < itemList.length; i++) {
-    var itemCard = createItem(itemList[i])
-    $fullcatalog.appendChild(itemCard)
-  }
+  itemList.forEach(item => {
+    var singleItem = createItem(item)
+    $fullcatalog.appendChild(singleItem)
+  })
   return $fullcatalog
 }
 
@@ -148,13 +148,13 @@ function showView(app) {
   selectView(app.view)
   if (app.view === 'catalog') {
     $catalogView.appendChild(buildCatalog(app.catalog.items))
-    $pageHeading.textContent = 'Jamazon'
+    $pageTitle.textContent = 'Jamazon'
   }
   else if (app.view === 'details') {
     $detailsView.appendChild(createDetails(app.details.item))
 
-    var btn = document.getElementById('button')
-    btn.onclick = function () {
+    var btnAddCart = document.getElementById('btn-add-cart')
+    btnAddCart.onclick = function () {
       app.cart.items.push(app.details.item)
       $cartBadge.textContent = '(' + (app.cart.items.length) + ')'
     }
@@ -211,7 +211,7 @@ function createDetails(item) {
   $price.setAttribute('id', 'price')
   $addToCart.setAttribute('href', '#')
   $addToCart.setAttribute('class', 'btn btn-outline-primary btn-sm')
-  $addToCart.setAttribute('id', 'button')
+  $addToCart.setAttribute('id', 'btn-add-cart')
   $checkout.setAttribute('class', 'btn btn-outline-primary btn-sm')
   $checkout.setAttribute('id', 'btn-back')
 
@@ -237,43 +237,31 @@ function createDetails(item) {
   return $itemDetails
 
 }
-
 function match(id, catalog) {
-  var match = null
-  for (var i = 0; i < catalog.items.length; i++) {
-    if (id === catalog.items[i].itemId) {
-      match = catalog.items[i]
-    }
-  }
-  return match
+  return catalog.items.find(item => id === item.itemId)
 }
 
 $catalogView.addEventListener('click', function () {
-  var elt = event.target.closest('.card')
+  var itemClicked = event.target.closest('.card')
   app.view = 'details'
   selectView(app.view)
-  var itemId = parseInt(elt.getAttribute('data-item-id'))
+  var itemId = parseInt(itemClicked.getAttribute('data-item-id'), 10)
   app.details.item = match(itemId, app.catalog)
   showView(app)
 })
 
 function selectView(viewName) {
-  $catalogView.setAttribute('class', 'hidden')
-  $detailsView.setAttribute('class', 'hidden')
-  $cartView.setAttribute('class', 'hidden')
-  $checkoutView.setAttribute('class', 'hidden')
-  if (viewName === 'catalog') {
-    $catalogView.removeAttribute('class', 'hidden')
-  }
-  else if (viewName === 'details') {
-    $detailsView.removeAttribute('class', 'hidden')
-  }
-  else if (viewName === 'cart') {
-    $cartView.removeAttribute('class', 'hidden')
-  }
-  else {
-    $checkoutView.removeAttribute('class', 'hidden')
-  }
+  var views = [$catalogView, $detailsView, $cartView, $checkoutView]
+  views.forEach(view => {
+    if (view.getAttribute('data-view') !== viewName) {
+      view.setAttribute('class', 'hidden')
+    }
+    else view.removeAttribute('class', 'hidden')
+  })
+}
+
+function formatPrice(numberString) {
+  return '$' + parseFloat(numberString).toFixed(2)
 }
 
 function createCartItem(item) {
@@ -303,7 +291,7 @@ function createCartItem(item) {
   $image.src = item.imageUrl
   $itemTitle.textContent = item.name
   $subTitle.textContent = item.brand
-  $price.textContent = '$' + parseFloat(item.price).toFixed(2)
+  $price.textContent = formatPrice(item.price)
 
   $cartView.appendChild($row)
   $row.appendChild($firstCol)
@@ -322,13 +310,13 @@ function buildCart(cart) {
   var $cartItems = document.createElement('div')
   $cartItems.setAttribute('id', 'cart-container')
   var cartTotal = 0
-  for (var i = 0; i < cart.items.length; i++) {
-    var cartItem = createCartItem(cart.items[i])
+  app.cart.items.forEach(item => {
+    var cartItem = createCartItem(item)
     $cartItems.appendChild(cartItem)
-    cartTotal += cart.items[i].price
-  }
+    cartTotal += item.price
+  })
 
-  $pageHeading.textContent = 'Cart'
+  $pageTitle.textContent = 'Cart'
 
   var $itemCount = document.createElement('div')
   $itemCount.setAttribute('class', 'cart')
@@ -336,7 +324,7 @@ function buildCart(cart) {
 
   var $cartTotal = document.createElement('div')
   $cartTotal.setAttribute('class', 'cart')
-  $cartTotal.textContent = 'Total: $' + parseFloat(cartTotal).toFixed(2)
+  $cartTotal.textContent = formatPrice(cartTotal)
 
   var $btnSection = document.createElement('div')
   var $continueShopBtn = document.createElement('button')
@@ -350,28 +338,21 @@ function buildCart(cart) {
   $continueShopBtn.textContent = 'Continue Shopping'
   $checkoutBtn.textContent = 'Checkout'
 
-  var $itemDetails = document.getElementById('details')
-  var $catalog = document.getElementById('catalog-element')
-  var $shoppingCart = document.getElementById('cart-container')
-
-  $continueShopBtn.onclick = function () {
-    app.view = 'catalog'
-    selectView(app.view)
-    if ($detailsView.contains($itemDetails)) $detailsView.removeChild($itemDetails)
-    if ($catalogView.contains($catalog)) $catalogView.removeChild($catalog)
-    if ($cartView.contains($shoppingCart)) $cartView.removeChild($shoppingCart)
-    showView(app)
-  }
-
-  $checkoutBtn.onclick = function () {
-    app.view = 'checkout'
-    createCheckoutView(app.cart)
-    selectView(app.view)
-    if ($detailsView.contains($itemDetails)) $detailsView.removeChild($itemDetails)
-    if ($catalogView.contains($catalog)) $catalogView.removeChild($catalog)
-    if ($cartView.contains($shoppingCart)) $cartView.removeChild($shoppingCart)
-    showView(app)
-  }
+  $cartView.addEventListener('click', function () {
+    if (event.target === $continueShopBtn) {
+      app.view = 'catalog'
+      selectView(app.view)
+      $catalogView.innerHTML = ''
+      showView(app)
+    }
+    else if (event.target === $checkoutBtn) {
+      app.view = 'checkout'
+      createCheckoutView(app.cart)
+      selectView(app.view)
+      $checkoutView.innerHTML = ''
+      showView(app)
+    }
+  })
 
   $cartItems.appendChild($itemCount)
   $cartItems.appendChild($cartTotal)
@@ -438,9 +419,11 @@ function createCheckoutView(cart) {
   $payBtnSection.appendChild($payBtn)
   $payBtnSection.setAttribute('class', 'btn-pay')
 
-  $payBtn.onclick = function () {
-    alert('Your order has been received!')
-  }
+  $checkoutView.addEventListener('click', function () {
+    if (event.target === $payBtn) {
+      alert('Your order has been received!')
+    }
+  })
 
   $form.appendChild($custNameSection)
   $form.appendChild($custNameLabel)
@@ -454,10 +437,12 @@ function createCheckoutView(cart) {
   $form.appendChild($creditCardName)
   $form.appendChild($payBtnSection)
 
-  var cartTotal = 0
-  for (var i = 0; i < cart.items.length; i++) {
-    cartTotal += cart.items[i].price
-  }
+  var prices = []
+  app.cart.items.forEach(item => {
+    prices.push(item.price)
+  })
+
+  var cartTotal = app.cart.items.map(item => item.price).reduce((accumulator, currentValue) => accumulator + currentValue)
 
   var $itemCount = document.createElement('div')
   $itemCount.setAttribute('class', 'cart-pay')
@@ -467,7 +452,7 @@ function createCheckoutView(cart) {
   $cartTotal.setAttribute('class', 'cart-pay')
   $cartTotal.textContent = 'Total: $' + cartTotal
 
-  $pageHeading.textContent = 'Checkout'
+  $pageTitle.textContent = 'Checkout'
   $checkoutView.appendChild($form)
   $checkoutView.appendChild($itemCount)
   $checkoutView.appendChild($cartTotal)
