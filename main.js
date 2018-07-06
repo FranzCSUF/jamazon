@@ -245,7 +245,7 @@ $catalogView.addEventListener('click', function () {
   var itemClicked = event.target.closest('.card')
   app.view = 'details'
   selectView(app.view)
-  var itemId = parseInt(itemClicked.getAttribute('data-item-id'))
+  var itemId = parseInt(itemClicked.getAttribute('data-item-id'), 16)
   app.details.item = match(itemId, app.catalog)
   showView(app)
 })
