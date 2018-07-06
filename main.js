@@ -345,28 +345,25 @@ function buildCart(cart) {
   $continueShopBtn.textContent = 'Continue Shopping'
   $checkoutBtn.textContent = 'Checkout'
 
-  var $itemDetails = document.getElementById('details')
-  var $catalog = document.getElementById('catalog-element')
-  var $shoppingCart = document.getElementById('cart-container')
-
-  $continueShopBtn.onclick = function () {
-    app.view = 'catalog'
-    selectView(app.view)
-    if ($detailsView.contains($itemDetails)) $detailsView.removeChild($itemDetails)
-    if ($catalogView.contains($catalog)) $catalogView.removeChild($catalog)
-    if ($cartView.contains($shoppingCart)) $cartView.removeChild($shoppingCart)
-    showView(app)
-  }
-
-  $checkoutBtn.onclick = function () {
-    app.view = 'checkout'
-    createCheckoutView(app.cart)
-    selectView(app.view)
-    if ($detailsView.contains($itemDetails)) $detailsView.removeChild($itemDetails)
-    if ($catalogView.contains($catalog)) $catalogView.removeChild($catalog)
-    if ($cartView.contains($shoppingCart)) $cartView.removeChild($shoppingCart)
-    showView(app)
-  }
+  $cartView.addEventListener('click', function () {
+    if (event.target === $continueShopBtn) {
+      app.view = 'catalog'
+      selectView(app.view)
+      $detailsView.innerHTML = ''
+      $catalogView.innerHTML = ''
+      $cartView.innerHTML = ''
+      showView(app)
+    }
+    else if (event.target === $checkoutBtn) {
+      app.view = 'checkout'
+      createCheckoutView(app.cart)
+      selectView(app.view)
+      $detailsView.innerHTML = ''
+      $catalogView.innerHTML = ''
+      $cartView.innerHTML = ''
+      showView(app)
+    }
+  })
 
   $cartItems.appendChild($itemCount)
   $cartItems.appendChild($cartTotal)
