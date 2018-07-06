@@ -138,8 +138,8 @@ function buildCatalog(itemList) {
   var $fullcatalog = document.createElement('div')
   $fullcatalog.setAttribute('id', 'catalog-element')
   for (var i = 0; i < itemList.length; i++) {
-    var itemCard = createItem(itemList[i])
-    $fullcatalog.appendChild(itemCard)
+    var singleItem = createItem(itemList[i])
+    $fullcatalog.appendChild(singleItem)
   }
   return $fullcatalog
 }
@@ -153,8 +153,8 @@ function showView(app) {
   else if (app.view === 'details') {
     $detailsView.appendChild(createDetails(app.details.item))
 
-    var btn = document.getElementById('btn-add-cart')
-    btn.onclick = function () {
+    var btnAddCart = document.getElementById('btn-add-cart')
+    btnAddCart.onclick = function () {
       app.cart.items.push(app.details.item)
       $cartBadge.textContent = '(' + (app.cart.items.length) + ')'
     }
@@ -249,10 +249,10 @@ function match(id, catalog) {
 }
 
 $catalogView.addEventListener('click', function () {
-  var elt = event.target.closest('.card')
+  var itemClicked = event.target.closest('.card')
   app.view = 'details'
   selectView(app.view)
-  var itemId = parseInt(elt.getAttribute('data-item-id'))
+  var itemId = parseInt(itemClicked.getAttribute('data-item-id'))
   app.details.item = match(itemId, app.catalog)
   showView(app)
 })
