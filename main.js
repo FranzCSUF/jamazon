@@ -258,22 +258,13 @@ $catalogView.addEventListener('click', function () {
 })
 
 function selectView(viewName) {
-  $catalogView.setAttribute('class', 'hidden')
-  $detailsView.setAttribute('class', 'hidden')
-  $cartView.setAttribute('class', 'hidden')
-  $checkoutView.setAttribute('class', 'hidden')
-  if (viewName === 'catalog') {
-    $catalogView.removeAttribute('class', 'hidden')
-  }
-  else if (viewName === 'details') {
-    $detailsView.removeAttribute('class', 'hidden')
-  }
-  else if (viewName === 'cart') {
-    $cartView.removeAttribute('class', 'hidden')
-  }
-  else {
-    $checkoutView.removeAttribute('class', 'hidden')
-  }
+  var views = [$catalogView, $detailsView, $cartView, $checkoutView]
+  views.forEach(view => {
+    if (view.getAttribute('data-view') !== viewName) {
+      view.setAttribute('class', 'hidden')
+    }
+    else view.removeAttribute('class', 'hidden')
+  })
 }
 
 function createCartItem(item) {
