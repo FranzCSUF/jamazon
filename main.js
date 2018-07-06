@@ -430,9 +430,14 @@ function createCheckoutView(cart) {
   $payBtnSection.appendChild($payBtn)
   $payBtnSection.setAttribute('class', 'btn-pay')
 
-  $payBtn.onclick = function () {
-    alert('Your order has been received!')
-  }
+  // $payBtn.onclick = function () {
+  //   alert('Your order has been received!')
+  // }
+  $checkoutView.addEventListener('click', function () {
+    if (event.target === $payBtn) {
+      alert('Your order has been received!')
+    }
+  })
 
   $form.appendChild($custNameSection)
   $form.appendChild($custNameLabel)
