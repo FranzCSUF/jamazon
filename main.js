@@ -430,9 +430,6 @@ function createCheckoutView(cart) {
   $payBtnSection.appendChild($payBtn)
   $payBtnSection.setAttribute('class', 'btn-pay')
 
-  // $payBtn.onclick = function () {
-  //   alert('Your order has been received!')
-  // }
   $checkoutView.addEventListener('click', function () {
     if (event.target === $payBtn) {
       alert('Your order has been received!')
@@ -451,10 +448,12 @@ function createCheckoutView(cart) {
   $form.appendChild($creditCardName)
   $form.appendChild($payBtnSection)
 
-  var cartTotal = 0
+  var prices = []
   app.cart.items.forEach(item => {
-    cartTotal += item.price
+    prices.push(item.price)
   })
+
+  var cartTotal = prices.reduce((accumulator, currentValue) => accumulator + currentValue)
 
   var $itemCount = document.createElement('div')
   $itemCount.setAttribute('class', 'cart-pay')
